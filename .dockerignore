@@ -1,0 +1,39 @@
+# Dockerignore: exclude bulky / sensitive paths from build context
+
+# VCS
+.git
+.gitignore
+.gitconfig
+
+# Node
+**/node_modules
+**/build
+**/dist
+**/.next
+**/coverage
+
+# Python
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.venv
+**/venv
+
+# Editor / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Local env files (will be injected via compose env / runtime)
+**/.env.local
+**/.env.*.local
+
+# Logs / test reports
+**/*.log
+test_reports
+tests/__pycache__
+
+# Other big things we don't want in build context
+*.pdf.bak

@@ -1,0 +1,7 @@
+/* App-level styling. Body styles live in index.css.
+   Menu Automation status dashboard uses Tailwind utility classes;
+   keep this file minimal so no global selectors leak into the app. */
+
+.App {
+    min-height: 100vh;
+}
