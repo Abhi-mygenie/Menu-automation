@@ -1,0 +1,93 @@
+{
+  "$schema_note": "Template only — NOT real extracted data. Each instance of this template is filled by a HUMAN REVIEWER for one menu file in the golden dataset. Do NOT auto-generate from extractor output. Versioned by (dataset_id, dataset_version).",
+
+  "template_version": "1.0",
+  "template_purpose": "Golden expected output per menu file. Source of truth for extraction evaluation.",
+
+  "instance_metadata": {
+    "dataset_id": "<string | UUID — links to menu_import_dataset_manifest>",
+    "dataset_version": "<string — e.g., v0.1.0-2026-01-22T10:00Z>",
+    "source_file": "<string — original Drive file name preserved>",
+    "drive_file_id": "<string — opaque Drive id>",
+    "sha256": "<string — SHA-256 of source file>",
+    "classification": ["<one or more of: SIMPLE_MENU | MEDIUM_MENU | COMPLEX_MENU | VARIANT_MENU | ADDON_MENU | PDF_TEXT_MENU | PDF_SCANNED_MENU | IMAGE_CLEAR_MENU | IMAGE_POOR_QUALITY_MENU | TAX_NOTE_MENU | REGIONAL_INDIAN_MENU | EDGE_CASE_MENU>"],
+    "set_membership": ["<one or more of: SMOKE | PHASE1_GOLDEN | STRESS | LEARNING_MEMORY | PHASE2_PARKING>"],
+    "human_verified_by": "<string — reviewer identifier>",
+    "human_verified_at": "<ISO-8601 datetime>",
+    "second_reviewer": "<string | null>",
+    "third_reviewer_resolver": "<string | null — only if first two disagreed>",
+    "frozen_at": "<ISO-8601 datetime | null — once non-null, this expected output is immutable for this dataset_version>",
+    "notes": "<free-text reviewer commentary>"
+  },
+
+  "expected_pages": [
+    {
+      "page_number": 1,
+      "expected_rows": [
+        {
+          "row_index": 1,
+          "category": "<string — canonical category name as the reviewer would expect>",
+          "subcategory": "<string | null>",
+          "item_name": "<string — exact spelling expected after normalization>",
+          "rate": "<string — decimal as string, e.g., '240.00'>",
+          "currency": "<string — e.g., 'INR'>",
+          "raw_text_reference": "<string — the literal source text on the page that grounds this row>",
+          "source_grounding_required": true,
+          "source_bbox_hint": {
+            "comment": "Optional. Reviewer may provide approximate bbox if helpful; not required.",
+            "x": null, "y": null, "w": null, "h": null
+          },
+          "expected_issue_status": "<one of: clean | review_required | flagged_only_phase1>",
+          "expected_warnings": [
+            "<zero or more of: price_uncertain | category_inferred | variant_detected | possible_addon_detected | addon_without_parent_item | multi_column_confusion | duplicate_possible | same_name_different_price | same_price_different_variant | missing_price | possible_spelling_issue | tax_note_detected | combo_detected | unit_price_detected | no_source_grounding>"
+          ],
+          "variant_flag_expected": false,
+          "addon_flag_expected": false,
+          "tax_note_flag_expected": false,
+          "confidence_expectation": "<one of: high | medium | low>",
+          "phase1_required_extracted": true,
+          "phase2_only_detail": {
+            "comment": "If this row's variants/add-ons are NOT required to be extracted in Phase 1, populate this block. Phase 1 must still flag the pattern.",
+            "expected_variants": [
+              { "group_name": "<e.g., 'Size'>", "name": "<e.g., 'Small'>", "price": "<e.g., '120.00'>" }
+            ],
+            "expected_addons": [
+              { "group_name": "<e.g., 'Extras'>", "name": "<e.g., 'Cheese'>", "price": "<e.g., '20.00'>" }
+            ]
+          },
+          "notes": "<reviewer notes for this row>"
+        }
+      ],
+      "expected_menu_notes": [
+        {
+          "note_text": "<string — exact text on the page>",
+          "note_type": "<one of: tax_note | service_charge_note | packaging_note | addon_note | availability_note | general_note>",
+          "expected_mapping": "<one of: unmapped | addon | modifier | tax_setting | item_description | ignored>",
+          "must_be_detected_in_phase1": true,
+          "notes": "<reviewer notes>"
+        }
+      ]
+    }
+  ],
+
+  "expected_aggregate_counts": {
+    "comment": "Aggregate ground truth used for row-count + recall metrics.",
+    "total_rows_expected": 0,
+    "total_categories_expected": 0,
+    "total_menu_notes_expected": 0,
+    "total_variant_flags_expected": 0,
+    "total_addon_flags_expected": 0,
+    "total_tax_note_flags_expected": 0
+  },
+
+  "rules_for_reviewer": [
+    "Do NOT invent any row. Every expected row must be visible in the source file.",
+    "Use exact spelling expected AFTER normalization (title-case, currency stripped).",
+    "When unsure about category, use the category text from the menu itself; if no category visible, mark expected_warnings include 'category_inferred' and note in 'notes'.",
+    "raw_text_reference must be a verbatim substring from the page (post-OCR if scanned).",
+    "Phase 1 evaluation only requires: category, item_name, rate, currency, source-grounding, and warning flags. Variants/add-ons go into 'phase2_only_detail' and are scored under the Phase 2 Parking Set.",
+    "If the page is unreadable, mark the page-level field 'unreadable=true' and skip rows; this is a valid evaluation case.",
+    "Two reviewers fill the same template independently for Phase 1 Golden and Stress sets. A third resolves disagreements.",
+    "When 'frozen_at' is set, this file is immutable for the dataset_version. Any change requires a new dataset_version."
+  ]
+}
