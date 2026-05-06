@@ -116,3 +116,53 @@ The owner's intent is "no per-restaurant cost cap because the platform itself ab
 | **Phase 0C — Dataset prep execution** | 🟢 Ready to start when owner uploads the zip and says "proceed with Phase 0C execution" |
 | **Build Phase 2 — Extraction** | ❌ Blocked on Phase 0C completion (frozen `dataset_version` + Sunil's expected outputs) |
 | **Build Phase 6 — POS Sync** | ❌ Parked until POS team confirms contract |
+
+
+---
+
+## 6. Phase 0C Dataset Deliverables Reconstruction (2026-05)
+
+**Action by:** Phase 0C Dataset Deliverables Reconstruction Agent (doc-only, read-only).
+
+### What changed
+
+- The agent walked `/app/datasets/menus_raw/v0.1.0-PROPOSED/`, hashed every file (SHA-256), detected duplicates, and produced the missing v0.1.0 deliverables:
+  - `MENU_DATASET_INVENTORY_v0.1.0_PROPOSED.md`
+  - `MENU_DATASET_QUALITY_REPORT_v0.1.0.md`
+  - `MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md`
+  - `MENU_EXPECTED_OUTPUT_PLACEHOLDERS_v0.1.0.json`
+  - `MENU_DATASET_OWNER_APPROVAL_STATUS_v0.1.0.md`
+  - `MENU_DATASET_REVIEWER_HANDOFF_SUNIL_v0.1.0.md`
+- Headline numbers: 33 PDFs total, 32 unique, 1 duplicate (`Makhna_menu.pdf` in batch-04 ≡ batch-07), 0 image files. **30-menu target met.**
+
+### Decisions confirmed (no change to existing closures)
+
+- **D-7 Stack path** — Path A (Python + `emergentintegrations` + `EMERGENT_LLM_KEY`) confirmed in §1 above; carry-forward.
+- **H-3 Dataset size** — 32 accepted ≥ 30 target ✅.
+- **H-4 Reviewer = Sunil** — primary reviewer; second reviewer **NOT yet nominated, NOT waived**. Owner action still pending.
+- **D-6 Cost cap** — unchanged (free for restaurants + defensive ceilings).
+- **H-1 / H-2** — Drive route still deferred; **leaked-key revocation status STILL UNVERIFIED** by this agent (security hygiene action remains on the owner; see §2).
+
+### New items introduced
+
+| ID | Item | Status | Notes |
+|---|---|---|---|
+| **D-NEW-1** | Image-format coverage in v0.1.0 | 🔴 **GAP** — corpus is 100% PDF | Recommendation: defer to a follow-up `v0.1.1` release; owner to confirm. Tracked in `MENU_DATASET_QUALITY_REPORT_v0.1.0.md §4`. |
+| **D-NEW-2** | PDF text-layer probe tooling | 🟡 **OPS gap** | `pdftotext` / `pdfinfo` not installed; Sunil to mark `PDF_TEXT` vs `PDF_SCANNED` per file, OR install `poppler-utils` and re-run inventory. |
+| **D-NEW-3** | Owner approval of split (Gate G6) | ⬜ pending | Trigger phrase in `MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md §10`. |
+| **D-NEW-4** | Sunil review (Gate G7) | ⬜ pending | Begins **after** G6 closes. |
+| **D-NEW-5** | Owner freeze command (Gate G9) | ⬜ pending | Trigger phrase: `"freeze v0.1.0 dataset — all gates green"`. |
+
+### Build phase impact
+
+| Build phase | Status (post-reconstruction) |
+|---|---|
+| **Build Phase 1 — Foundation** | ✅ **CAN START** — independent of dataset freeze; awaits owner closing Gates 1–7 in `PRODUCTION_GRADE_OWNER_DECISION_SHEET.md` |
+| **Phase 0C — Dataset prep execution** | 🟡 **Plan + deliverables done; freeze NOT done** — awaits Sunil + owner |
+| **Build Phase 2 — Extraction** | ❌ **STILL BLOCKED** on Phase 0C freeze + Build Phase 1 ship |
+| **Build Phase 6 — POS Sync** | ❌ **STILL PARKED** — POS team contract confirmation independent of this work |
+
+### Security note (carry-forward)
+
+The H-2 leaked service-account key (`bug-intake@voice-bug-intake.iam.gserviceaccount.com`, key id `ad8c4a3857158b4aa34be710f862ea4f221a42b1`) **revocation has not been verified** by this agent. Independent of dataset freeze, but flagged for visibility. No new credential was requested or used.
+

@@ -262,3 +262,38 @@ Aligns with P2-7.
 3. Update affected docs.
 
 P0 closures **must** be reflected in `PRODUCTION_GRADE_OWNER_DECISION_SHEET.md` and `PRODUCTION_GRADE_APPROVAL_SUMMARY.md` before build begins.
+
+
+---
+
+## Appendix — Phase 0C Dataset Status Update (2026-05)
+
+**Update by:** Phase 0C Dataset Deliverables Reconstruction Agent
+**Scope:** records that the v0.1.0 dataset deliverables have been **reconstructed from existing files** (no extraction, no Gemini), and clarifies what's still pending.
+
+### Dataset deliverables — current state
+
+| Deliverable | Status | File |
+|---|---|---|
+| Dataset PDFs on disk | ✅ done | `/app/datasets/menus_raw/v0.1.0-PROPOSED/` (33 files; 32 unique by SHA-256) |
+| Inventory | ✅ done | `MENU_DATASET_INVENTORY_v0.1.0_PROPOSED.md` |
+| Quality report | ✅ done | `MENU_DATASET_QUALITY_REPORT_v0.1.0.md` |
+| Golden split (proposed) | ✅ done | `MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md` |
+| Expected-output placeholders | ✅ done | `MENU_EXPECTED_OUTPUT_PLACEHOLDERS_v0.1.0.json` (32 entries; 1 duplicate excluded) |
+| Reviewer handoff (Sunil) | ✅ done | `MENU_DATASET_REVIEWER_HANDOFF_SUNIL_v0.1.0.md` |
+| Owner approval gate board | ✅ done | `MENU_DATASET_OWNER_APPROVAL_STATUS_v0.1.0.md` |
+| Owner sign-off on split (G6) | ⬜ **PENDING** | — |
+| Sunil expected-output review (G7) | ⬜ **PENDING** | — |
+| Second reviewer assignment / waiver (G8) | ⬜ **PENDING** | — |
+| Owner freeze command (G9) | ⬜ **PENDING** | — |
+| Dataset state | 🔴 `v0.1.0-PROPOSED` (NOT FROZEN) | — |
+
+### Net effect on the question backlog
+
+- **Dataset prep planning (was P0/P1):** **CLOSED** — all docs exist on disk.
+- **Dataset prep execution / freeze (P0 blocker):** **STILL OPEN** — pending Sunil's review + owner's freeze command.
+- **Image-format coverage:** **NEW P1 question** — corpus is 100% PDF; v0.1.0 cannot evaluate `IMAGE_CLEAR_MENU` / `IMAGE_POOR_QUALITY_MENU`. Recommendation: defer image coverage to a follow-up `v0.1.1` release. Owner to confirm.
+- **PDF text-layer probe:** **NEW P2 ops question** — `pdftotext` / `pdfinfo` are not installed in the dataset-prep env. Either (a) install `poppler-utils` so a follow-up agent can probe each PDF, or (b) Sunil marks `PDF_TEXT_MENU` vs `PDF_SCANNED_MENU` per file during his review. Tracked in `MENU_DATASET_QUALITY_REPORT_v0.1.0.md §5`.
+- **Build Phase 1 (Foundation):** **STILL CAN START** — independent of dataset freeze. Awaits owner closure of Gates 1–7 in `PRODUCTION_GRADE_OWNER_DECISION_SHEET.md`.
+- **Build Phase 2 (Extraction):** **STILL BLOCKED** — needs frozen v0.1.0 + Build Phase 1 complete.
+

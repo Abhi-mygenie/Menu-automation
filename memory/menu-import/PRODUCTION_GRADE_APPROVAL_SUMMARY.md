@@ -263,3 +263,43 @@ Until Steps A–C complete, **do not begin code**. Until 0B + 0C complete, **do 
 ## 8. Final Note
 
 The pack now reflects production-grade thinking in both content and positioning. Phase 1 is a real release, not a prototype. The safety invariants are explicit and testable. The next correct action is **Phase 0 (decisions + discoveries) and Gate approvals**, not implementation.
+
+
+---
+
+## 9. Addendum — Phase 0C Dataset Deliverables Reconstructed (2026-05)
+
+**Reconstructed by:** Phase 0C Dataset Deliverables Reconstruction Agent (read-only, doc-only).
+
+### What was added under `/app/memory/menu-import/`
+
+- `MENU_DATASET_INVENTORY_v0.1.0_PROPOSED.md` — 33 PDFs / 32 unique by SHA-256 / 1 duplicate / 0 image files. Stable IDs `MENU-v0.1.0-0001…0033` assigned.
+- `MENU_DATASET_QUALITY_REPORT_v0.1.0.md` — verdict 🟡 YELLOW (numerically sufficient, image-format gap, no text-layer probe).
+- `MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md` — proposed Smoke (5) / Phase 1 Golden (20) / Stress (5+) / Learning Memory / Phase 2 Parking (empty, TBD by Sunil) memberships.
+- `MENU_EXPECTED_OUTPUT_PLACEHOLDERS_v0.1.0.json` — 32 placeholder entries (`expected_pages` empty; metadata + set memberships pre-filled).
+- `MENU_DATASET_REVIEWER_HANDOFF_SUNIL_v0.1.0.md` — Sunil's review brief: priority order, required fields, controlled warning code list, unclear-row handling, do-not list.
+- `MENU_DATASET_OWNER_APPROVAL_STATUS_v0.1.0.md` — gate board G1…G10 with the operational definition of "freeze".
+
+### Net program status after this addendum
+
+| Item | Before | After |
+|---|---|---|
+| Dataset deliverables on disk | ❌ missing | ✅ present (this addendum) |
+| Dataset state | not yet planned | 🔴 **`v0.1.0-PROPOSED` — NOT FROZEN** |
+| Sunil expected-output review | not started | ⬜ **PENDING** (Sunil + owner action) |
+| Second reviewer | not nominated | ⬜ **PENDING** (owner action; not waived) |
+| Image-format coverage | not assessed | ❌ **0 image files** — defer to v0.1.1 unless owner directs otherwise |
+| Build Phase 1 (Foundation) | gated on Gates 1–7 | ✅ **STILL CAN START** (independent of dataset freeze) |
+| Build Phase 2 (Extraction) | gated on 0B + 0C | ❌ **STILL BLOCKED** until v0.1.0 frozen + Build Phase 1 ships |
+| Build Phase 6 (POS Sync) | parked | ❌ **STILL PARKED** until POS team confirms contract |
+| H-2 leaked GCP key | open security item | ❌ **revocation status not verifiable from this workspace** — independent action |
+
+### Implementation status
+
+- **No implementation code, no schema, no migrations, no Gemini calls** were performed by the reconstruction agent.
+- Backend `server.py` and frontend `App.js` are unchanged for menu-import purposes (any prior modifications belong to an unrelated "Menu Automation setup & handover" pass and are documented in `MENU_IMPORT_CURRENT_STATUS_AUDIT.md`).
+
+### Owner's next safe step
+
+Approve the proposed split (Gate **G6**) and send the brief to Sunil. See `MENU_DATASET_OWNER_APPROVAL_STATUS_v0.1.0.md §6` for the action queue.
+
