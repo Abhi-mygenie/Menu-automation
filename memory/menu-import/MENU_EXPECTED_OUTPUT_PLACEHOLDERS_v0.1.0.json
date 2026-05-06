@@ -32,8 +32,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -108,8 +107,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -184,8 +182,7 @@
           "SIZE_BUCKET_LARGE"
         ],
         "set_membership_proposed": [
-          "STRESS",
-          "LEARNING_MEMORY"
+          "STRESS"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -222,8 +219,7 @@
           "SIZE_BUCKET_MEDIUM"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -260,8 +256,7 @@
           "SIZE_BUCKET_TINY"
         ],
         "set_membership_proposed": [
-          "SMOKE",
-          "LEARNING_MEMORY"
+          "SMOKE"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -298,8 +293,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -450,8 +444,7 @@
           "SIZE_BUCKET_MEDIUM"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -488,8 +481,7 @@
           "SIZE_BUCKET_TINY"
         ],
         "set_membership_proposed": [
-          "SMOKE",
-          "LEARNING_MEMORY"
+          "SMOKE"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -564,8 +556,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -752,9 +743,7 @@
           "REGIONAL_INDIAN_MENU",
           "SIZE_BUCKET_LARGE"
         ],
-        "set_membership_proposed": [
-          "LEARNING_MEMORY"
-        ],
+        "set_membership_proposed": [],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
         "human_verified_at": null,
@@ -790,8 +779,7 @@
           "SIZE_BUCKET_MEDIUM"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -828,8 +816,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -866,8 +853,7 @@
           "SIZE_BUCKET_TINY"
         ],
         "set_membership_proposed": [
-          "SMOKE",
-          "LEARNING_MEMORY"
+          "SMOKE"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -942,8 +928,7 @@
           "SIZE_BUCKET_TINY"
         ],
         "set_membership_proposed": [
-          "SMOKE",
-          "LEARNING_MEMORY"
+          "SMOKE"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -980,8 +965,7 @@
           "SIZE_BUCKET_TINY"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -1018,8 +1002,7 @@
           "SIZE_BUCKET_MEDIUM"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -1094,8 +1077,7 @@
           "SIZE_BUCKET_LARGE"
         ],
         "set_membership_proposed": [
-          "STRESS",
-          "LEARNING_MEMORY"
+          "STRESS"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -1132,8 +1114,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -1170,8 +1151,7 @@
           "SIZE_BUCKET_SMALL"
         ],
         "set_membership_proposed": [
-          "PHASE1_GOLDEN",
-          "LEARNING_MEMORY"
+          "PHASE1_GOLDEN"
         ],
         "human_review_status": "HUMAN_REVIEW_REQUIRED",
         "human_verified_by": null,
@@ -1242,5 +1222,7 @@
       "duplicate_of_rel_path": "batch-04/Makhna_menu.pdf",
       "reason": "SHA-256 identical to original; not eligible for separate expected-output review."
     }
-  ]
+  ],
+  "last_amended_at": "2026-05-06T17:51:29+00:00",
+  "last_amendment": "Learning Memory Set trimmed from 31 to 12 curated files per owner amendment 2026-05."
 }

@@ -303,3 +303,40 @@ The pack now reflects production-grade thinking in both content and positioning.
 
 Approve the proposed split (Gate **G6**) and send the brief to Sunil. See `MENU_DATASET_OWNER_APPROVAL_STATUS_v0.1.0.md §6` for the action queue.
 
+
+
+---
+
+## 10. Owner approvals on Phase 0C deliverables (2026-05)
+
+### 10.1 Approvals received
+
+| Gate / item | Decision | Reference |
+|---|---|---|
+| G6 — Split approval | ✅ APPROVED with amendment (Learning Memory 31 → 12 curated) | `MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md §10`; `PHASE_0_DECISION_LOG.md §7.1` |
+| G8 — Second reviewer | ✅ WAIVED for v0.1.0 | `PHASE_0_DECISION_LOG.md §7.2` |
+| H-2 leaked credential | ✅ REVOKED (owner-confirmed) | `PHASE_0_DECISION_LOG.md §7.3` |
+
+### 10.2 Build phase status (post-approval)
+
+| Phase | Status |
+|---|---|
+| **Build Phase 1 — Foundation** | ✅ **STILL CAN START** — independent of dataset freeze; awaits owner closure of Gates 1–7 in `PRODUCTION_GRADE_OWNER_DECISION_SHEET.md` |
+| **Phase 0C — Dataset freeze (G7 + G9 + G10)** | 🟡 **Sunil review now CLEARED to start**; G9 owner freeze pending after Sunil completes |
+| **Build Phase 2 — Extraction** | ❌ **STILL BLOCKED** until v0.1.0 frozen + Build Phase 1 ships |
+| **Build Phase 6 — POS Sync** | ❌ **STILL PARKED** — POS team contract confirmation pending |
+
+### 10.3 Sunil review now CLEARED to start
+
+The reviewer package is `MENU_DATASET_REVIEWER_PACKAGE_SUNIL_v0.1.0.md`. It consolidates the handoff brief, the owner-approved split, the priority order, the controlled warning code list, and the start checklist. Owner shares this file with Sunil; Sunil signals completion when all 32 entries' `expected_pages[]` are filled.
+
+### 10.4 What still must NOT be done by anyone before owner's freeze command (G9)
+
+- ❌ No code implementation
+- ❌ No Gemini calls
+- ❌ No menu row parsing (category / item / rate)
+- ❌ No DB schemas / migrations
+- ❌ No backend / frontend source modifications for menu-import
+- ❌ No PDF mutation
+- ❌ No folder rename `…/v0.1.0-PROPOSED/` → `…/v0.1.0/` (that's G10, owner-triggered only)
+- ❌ No POS sync work

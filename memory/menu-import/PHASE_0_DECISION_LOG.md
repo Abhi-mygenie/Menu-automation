@@ -166,3 +166,68 @@ The owner's intent is "no per-restaurant cost cap because the platform itself ab
 
 The H-2 leaked service-account key (`bug-intake@voice-bug-intake.iam.gserviceaccount.com`, key id `ad8c4a3857158b4aa34be710f862ea4f221a42b1`) **revocation has not been verified** by this agent. Independent of dataset freeze, but flagged for visibility. No new credential was requested or used.
 
+
+
+---
+
+## 7. Owner Amendments + Waivers (2026-05) — POST-RECONSTRUCTION
+
+**Trigger:** Owner reviewed the reconstructed Phase 0C deliverables (`MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md`, etc.) and issued the following decisions in chat.
+
+### 7.1 Split approval (Gate G6) — ✅ CLOSED with amendment
+
+**Owner message (verbatim):**
+> _"v0.1.0 split approved with amendment: Keep Smoke Set = 5. Keep Phase 1 Golden Set = 20. Keep Stress Set as proposed. Trim Learning Memory Set from 31 files to around 10–12 representative files only. … Keep Phase 2 Parking Set as proposed. Keep dataset status as v0.1.0-PROPOSED, not frozen."_
+
+**Action taken:**
+- **Smoke Set** = 5 (unchanged).
+- **Phase 1 Golden Set** = 20 (unchanged).
+- **Stress Set** = 6 (unchanged — top-5 largest + `LIKELY_SCANNED_PDF_HEURISTIC` hits).
+- **Learning Memory Set** = trimmed 31 → **12 curated** files mapped to the owner's 6 test axes:
+  - regional Indian menu naming → 0014, 0004, 0024
+  - repeated OCR / spelling correction → 0009, 0011, 0016, 0033
+  - wrong category correction → 0028, 0002
+  - wrong price correction → 0017, 0010
+  - missing price correction → surfaces organically during review (no dedicated file)
+  - confusing layout / source grounding → 0019, 0011
+- **Phase 2 Parking Set** = 0 (unchanged; Sunil populates during review).
+- **Orphan recorded:** `MENU-v0.1.0-0020 Makhna_menu.pdf` is now in no set (was previously LM-only). Tracked in `MENU_GOLDEN_DATASET_SPLIT_v0.1.0_PROPOSED.md §8` as overflow / spare.
+- **Placeholders JSON** (`MENU_EXPECTED_OUTPUT_PLACEHOLDERS_v0.1.0.json`) updated: 19 entries had `LEARNING_MEMORY` removed; 12 retained; verified.
+- **Dataset state** unchanged: `v0.1.0-PROPOSED` — NOT FROZEN.
+
+### 7.2 Second reviewer (Gate G8) — ✅ WAIVED for v0.1.0
+
+**Owner message (verbatim):** _"waive second reviewer for v0.1.0"_
+
+**Recorded as:** `H-4 second reviewer = WAIVED for dataset_version v0.1.0`. Sunil is the sole reviewer for v0.1.0 expected outputs. If a v0.1.1 release adds image-format menus or otherwise materially extends the corpus, second-reviewer policy will be re-opened.
+
+### 7.3 H-2 leaked credential — ✅ REVOKED
+
+**Owner message (verbatim):** _"key revoked"_
+
+**Recorded as:** Service-account key id `ad8c4a3857158b4aa34be710f862ea4f221a42b1` for `bug-intake@voice-bug-intake.iam.gserviceaccount.com` is now revoked. Sev-1 incident from §2 closed at the credential-rotation level.
+
+### 7.4 Carry-forward / still-open items
+
+| Item | Status |
+|---|---|
+| H-2 — leaked-key audit log review (Cloud Logging past-24-hours check) | 🟡 Recommended but not confirmed by owner. Independent of dataset freeze. |
+| H-2 — fresh dedicated read-only service account (`menu-dataset-readonly@…`) | 🟡 Deferred (Drive route deferred per H-1 zip-via-chat path). Reopen if Phase 2+ needs Drive. |
+| Phase 0A POS team contract confirmation | 🔴 Still blocked. POS Engineering owns. Affects Build Phase 6 only. |
+| D-6 USD cap value (Finance) | ✅ Closed as "free for restaurants" with defensive ceilings (see §3 above). Carry-forward. |
+| D-7 Stack path (Python + emergentintegrations) | ✅ Closed. Carry-forward. |
+
+### 7.5 Net status after this round
+
+| Build phase | Status |
+|---|---|
+| **Phase 0A (POS Discovery)** | 🟡 Plan done; POS team confirmation pending (independent) |
+| **Phase 0B (Gemini Playbook)** | ✅ Substantively closed; D-6 + D-7 closed |
+| **Phase 0C (Dataset prep)** | 🟡 Deliverables done; **G7 Sunil review pending**; G9 freeze pending |
+| **Build Phase 1 — Foundation** | ✅ **CAN START** — independent of dataset freeze; awaits owner closure of `PRODUCTION_GRADE_OWNER_DECISION_SHEET.md` Gates 1–7 |
+| **Build Phase 2 — Extraction** | ❌ Still blocked: needs Phase 0C frozen (after G7 → G9 → G10) **and** Build Phase 1 ship |
+| **Build Phase 6 — POS Sync** | ❌ Still parked — POS team contract confirmation independent of this work |
+
+### 7.6 Next safe step
+
+**Owner shares `MENU_DATASET_REVIEWER_PACKAGE_SUNIL_v0.1.0.md` with Sunil** so Gate G7 begins. The agent does not freeze until the owner sends `"freeze v0.1.0 dataset — all gates green"` (G9).
