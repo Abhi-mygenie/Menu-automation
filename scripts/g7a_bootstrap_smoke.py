@@ -663,16 +663,62 @@ async def _call_gemini_once(system_prompt: str, user_prompt: str,
             last_err = msg
             is_rate = ("RateLimitError" in msg or "429" in msg
                        or "RESOURCE_EXHAUSTED" in msg or "quota" in msg.lower())
-            if not is_rate or rl_attempt >= GEMINI_RATE_LIMIT_RETRIES:
+            is_transient = ("ServiceUnavailable" in msg or "503" in msg
+                            or "UNAVAILABLE" in msg or "InternalServerError" in msg
+                            or "500" in msg or "502" in msg or "504" in msg
+                            or "overloaded" in msg.lower())
+            if not (is_rate or is_transient) or rl_attempt >= GEMINI_RATE_LIMIT_RETRIES:
                 raise
-            # Try to parse a server-suggested retry delay; fallback to 30s.
+            # Try to parse a server-suggested retry delay; fallback to exponential backoff.
             m = re.search(r"Please retry in ([0-9.]+)s", msg)
-            delay = float(m.group(1)) + 2.0 if m else 30.0
+            if m:
+                delay = float(m.group(1)) + 2.0
+            else:
+                # exponential backoff for 5xx: 5, 10, 20, 40 seconds
+                delay = 5.0 * (2 ** rl_attempt)
             delay = max(delay, GEMINI_MIN_CALL_INTERVAL_S)
-            print(f"  [rate-limit] 429 received; sleeping {delay:.1f}s and retrying ({rl_attempt + 1}/{GEMINI_RATE_LIMIT_RETRIES})")
+            kind = "rate-limit" if is_rate else "transient-5xx"
+            print(f"  [{kind}] error received; sleeping {delay:.1f}s and retrying ({rl_attempt + 1}/{GEMINI_RATE_LIMIT_RETRIES})")
             await asyncio.sleep(delay)
     # Should not reach here
     raise SystemExit(f"Gemini rate-limit retries exhausted: {last_err}")
+
+
+def _normalize_response_warnings(obj: Dict[str, Any]) -> List[str]:
+    """Normalize known model-vocabulary deviations before schema validation.
+
+    The row-level `issue_status` enum includes 'category_inferred' (without the
+    '_page_level' suffix). The top-level/page-level `warnings` enums use
+    'category_inferred_page_level' instead. Models sometimes emit the row-level
+    name in the warning arrays. We safely rename it in place (warning arrays
+    only — never touches row issue_status).
+
+    Returns a list of human-readable normalization notes for the run audit log.
+    """
+    notes: List[str] = []
+    aliases = {"category_inferred": "category_inferred_page_level"}
+
+    def fix(arr: Any, where: str) -> Any:
+        if not isinstance(arr, list):
+            return arr
+        fixed: List[str] = []
+        for v in arr:
+            if isinstance(v, str) and v in aliases:
+                new = aliases[v]
+                if new not in fixed:
+                    fixed.append(new)
+                notes.append(f"{where}: '{v}' -> '{new}'")
+            else:
+                if v not in fixed:
+                    fixed.append(v)
+        return fixed
+
+    if "warnings" in obj:
+        obj["warnings"] = fix(obj["warnings"], "top.warnings")
+    for i, page in enumerate(obj.get("pages") or []):
+        if "warnings" in page:
+            page["warnings"] = fix(page["warnings"], f"pages[{i}].warnings")
+    return notes
 
 
 def _build_validator() -> Any:
@@ -752,6 +798,12 @@ async def _call_for_envelope(
                 "conforms to the schema described above. JSON only."
             )
             continue
+
+        # Safe normalization for known model-vocabulary deviations
+        norm_notes = _normalize_response_warnings(parsed)
+        if norm_notes:
+            print(f"  [normalize] {len(norm_notes)} warning(s) renamed: {norm_notes[:3]}")
+            cost_state.setdefault("normalizations", []).extend(norm_notes)
 
         err = _validate(validator, parsed)
         if err is None:

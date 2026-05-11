@@ -97,3 +97,48 @@ runs against this branch. The first canonical run on 7-may is Run #1 above.
 ## Run #2 onward
 
 (append below)
+## Run #2 — gemini_first_pass — COMPLETED
+
+```yaml
+run_id: 2026-05-11T21:27Z-910415
+kind: gemini_first_pass
+schema_version: gemini-extract-schema-v1.2
+prompt_version: extract-v1
+model_name: gemini-2.5-flash
+sdk_version: emergentintegrations==0.1.0
+script_revision: g7a_bootstrap_smoke.py --call-gemini (wired)
+dataset_ids:
+  - MENU-v0.1.0-0007
+  - MENU-v0.1.0-0013
+  - MENU-v0.1.0-0023
+  - MENU-v0.1.0-0024
+  - MENU-v0.1.0-0025
+outcome: pass
+halt_reason: null
+artifacts:
+  - /app/memory/menu-import/MENU_AI_FIRST_PASS_OUTPUT_SMOKE_v0.1.0.json
+metrics:
+  files_processed: 5
+  payload_count_total: 17
+  chunk_count_0007: 13
+  gemini_calls: 20
+  prompt_chars_total: 238314
+  response_chars_total: 289683
+  cost_usage_usd: 0.198925
+  cost_cap_usd: 1.0
+  schema_validation: all 5 documents passed gemini-extract-schema-v1.2 (merged 0007 re-validated)
+  warnings_injected: {'MENU-v0.1.0-0023': ['top:mixed_language_detected', 'top:ocr_unreadable', 'top:no_source_grounding_page_level', 'page1:mixed_language_detected', 'page1:ocr_unreadable', 'page1:no_source_grounding_page_level']}
+notes: |
+  All 5 Smoke Set documents extracted by gemini-2.5-flash from staged text-only
+  payloads. MENU-v0.1.0-0007 was submitted as 13 per-page chunks and merged
+  orchestrator-side. MENU-v0.1.0-0023 received post-call injection of the
+  required page+top-level warnings (mixed_language_detected, ocr_unreadable,
+  no_source_grounding_page_level) plus OCR_LOW_CONFIDENCE marker in metadata.
+
+  Per-document submission summary:
+    MENU-v0.1.0-0007(chunks=13), MENU-v0.1.0-0013(single), MENU-v0.1.0-0023(single), MENU-v0.1.0-0024(single), MENU-v0.1.0-0025(single)
+
+  Placeholders left untouched. Dataset NOT frozen.
+  G7B (human review by Sunil) may now begin against the archive at:
+    /app/memory/menu-import/MENU_AI_FIRST_PASS_OUTPUT_SMOKE_v0.1.0.json
+```
