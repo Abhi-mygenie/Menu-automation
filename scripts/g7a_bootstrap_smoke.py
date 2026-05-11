@@ -624,9 +624,9 @@ async def _call_gemini_once(system_prompt: str, user_prompt: str,
     # Lazy import so non-gemini code paths don't require the SDK at import time.
     from emergentintegrations.llm.chat import LlmChat, UserMessage  # type: ignore
 
-    api_key = os.environ.get("EMERGENT_LLM_KEY")
+    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("EMERGENT_LLM_KEY")
     if not api_key:
-        raise SystemExit("EMERGENT_LLM_KEY not set in environment.")
+        raise SystemExit("Neither GEMINI_API_KEY nor EMERGENT_LLM_KEY is set in environment.")
 
     chat = (
         LlmChat(api_key=api_key, session_id=session_id, system_message=system_prompt)
@@ -880,9 +880,10 @@ def gemini_preflight() -> Dict[str, Any]:
     except Exception as e:
         add("placeholders-load", False, repr(e))
 
-    # 6. EMERGENT_LLM_KEY available
-    has_key = bool(os.environ.get("EMERGENT_LLM_KEY"))
-    add("emergent-llm-key", has_key, "set" if has_key else "MISSING")
+    # 6. API key available (direct Gemini key OR Emergent universal key)
+    has_key = bool(os.environ.get("GEMINI_API_KEY") or os.environ.get("EMERGENT_LLM_KEY"))
+    add("api-key", has_key,
+        "GEMINI_API_KEY or EMERGENT_LLM_KEY set" if has_key else "MISSING")
 
     # 7. jsonschema available
     try:
