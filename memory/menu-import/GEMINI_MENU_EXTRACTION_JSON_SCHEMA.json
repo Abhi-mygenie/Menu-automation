@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mygenie.local/schemas/gemini-menu-extraction-v1.json",
+  "$id": "https://mygenie.local/schemas/gemini-menu-extraction-v1.2.json",
   "title": "Gemini Menu Extraction Output Schema",
   "description": "Strict JSON schema for Gemini structured output during menu extraction. Used in Phase 1 Production Release of the MyGenie AI Menu Import System. Every Gemini response MUST conform; responses that fail validation trigger retry per the playbook's §7.2 retry rules.",
-  "$comment": "Version string stored in menu_import_pages.raw_extraction_payload + menu_imports.json_schema_version. Bumping requires a new prompt version + eval rerun against the frozen golden set.",
+  "$comment": "Version string stored in menu_import_pages.raw_extraction_payload + menu_imports.json_schema_version. Bumping requires a new prompt version + eval rerun against the frozen golden set. v1.1 patch: added 'category_inferred' to row.issue_status enum. v1.2 patch: added optional pages[].warnings array (page-level extraction warnings).",
+  "version": "1.2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -59,8 +60,8 @@
         },
         "json_schema_version": {
           "type": "string",
-          "pattern": "^gemini-extract-schema-v\\d+$",
-          "description": "Schema version this response conforms to."
+          "pattern": "^gemini-extract-schema-v\\d+(\\.\\d+)?$",
+          "description": "Schema version this response conforms to (e.g., 'gemini-extract-schema-v1.2')."
         },
         "preprocessing_version": {
           "type": "string",
@@ -141,6 +142,28 @@
           "type": "array",
           "items": { "$ref": "#/$defs/MenuNote" },
           "description": "Page-level notes (GST extra, parcel charge, etc.). Never auto-applied."
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "empty_page",
+              "multi_column_confusion",
+              "ocr_unreadable",
+              "layout_ambiguous",
+              "mixed_language_detected",
+              "handwritten_section_detected",
+              "price_uncertain_page_level",
+              "category_inferred_page_level",
+              "no_source_grounding_page_level",
+              "chunked_page_partial_context",
+              "safety_refusal",
+              "cost_cap_exceeded"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "v1.2: Optional page-level warning codes raised during extraction of this specific page. Aggregated into the top-level 'warnings' by the orchestrator. Absence means no page-level warnings."
         }
       }
     },
@@ -204,8 +227,8 @@
         },
         "issue_status": {
           "type": "string",
-          "enum": ["clean", "review_required", "flagged_only_phase1"],
-          "description": "clean = passes all checks; review_required = blocking warning or low confidence; flagged_only_phase1 = variant/addon/tax-note pattern detected but not extracted in Phase 1."
+          "enum": ["clean", "review_required", "flagged_only_phase1", "category_inferred"],
+          "description": "clean = passes all checks; review_required = blocking warning or low confidence; flagged_only_phase1 = variant/addon/tax-note pattern detected but not extracted in Phase 1; category_inferred (v1.1) = category was not literally printed but inferred from surrounding layout/context — must surface to reviewer."
         },
         "source_grounded": {
           "type": "boolean",
