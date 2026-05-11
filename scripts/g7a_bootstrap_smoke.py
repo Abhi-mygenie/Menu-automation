@@ -132,6 +132,12 @@ DATASET_0023_REQUIRED_PAGE_WARNINGS = [
     "no_source_grounding_page_level",
 ]
 
+# Google AI Studio free tier limits gemini-2.5-flash to 5 RPM. Stay safely under
+# that with a per-call min interval; also retry on 429 with server-suggested delay.
+GEMINI_MIN_CALL_INTERVAL_S = 13.0
+GEMINI_RATE_LIMIT_RETRIES = 4
+_LAST_CALL_TS: List[float] = [0.0]  # module-level mutable holder
+
 
 # ---------------------------------------------------------------------------
 # Data classes
@@ -620,13 +626,20 @@ def _estimate_cost(prompt_chars: int, response_chars: int) -> float:
 
 async def _call_gemini_once(system_prompt: str, user_prompt: str,
                             session_id: str) -> Tuple[str, int, int]:
-    """Single Gemini call. Returns (response_text, prompt_chars, response_chars)."""
+    """Single Gemini call with RPM throttling + 429 retry. Returns (text, prompt_chars, response_chars)."""
     # Lazy import so non-gemini code paths don't require the SDK at import time.
     from emergentintegrations.llm.chat import LlmChat, UserMessage  # type: ignore
 
     api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("EMERGENT_LLM_KEY")
     if not api_key:
         raise SystemExit("Neither GEMINI_API_KEY nor EMERGENT_LLM_KEY is set in environment.")
+
+    # Throttle: keep below 5 RPM (free tier cap) — wait at least N seconds since last call.
+    elapsed = time.monotonic() - _LAST_CALL_TS[0]
+    if _LAST_CALL_TS[0] > 0 and elapsed < GEMINI_MIN_CALL_INTERVAL_S:
+        wait = GEMINI_MIN_CALL_INTERVAL_S - elapsed
+        print(f"  [throttle] sleeping {wait:.1f}s to stay under free-tier RPM")
+        await asyncio.sleep(wait)
 
     chat = (
         LlmChat(api_key=api_key, session_id=session_id, system_message=system_prompt)
@@ -636,10 +649,30 @@ async def _call_gemini_once(system_prompt: str, user_prompt: str,
             max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
         )
     )
-    resp_text = await chat.send_message(UserMessage(text=user_prompt))
-    prompt_chars = len(system_prompt) + len(user_prompt)
-    response_chars = len(resp_text or "")
-    return resp_text or "", prompt_chars, response_chars
+
+    last_err: Optional[str] = None
+    for rl_attempt in range(GEMINI_RATE_LIMIT_RETRIES + 1):
+        try:
+            resp_text = await chat.send_message(UserMessage(text=user_prompt))
+            _LAST_CALL_TS[0] = time.monotonic()
+            prompt_chars = len(system_prompt) + len(user_prompt)
+            response_chars = len(resp_text or "")
+            return resp_text or "", prompt_chars, response_chars
+        except Exception as e:  # ChatError wraps litellm errors
+            msg = str(e)
+            last_err = msg
+            is_rate = ("RateLimitError" in msg or "429" in msg
+                       or "RESOURCE_EXHAUSTED" in msg or "quota" in msg.lower())
+            if not is_rate or rl_attempt >= GEMINI_RATE_LIMIT_RETRIES:
+                raise
+            # Try to parse a server-suggested retry delay; fallback to 30s.
+            m = re.search(r"Please retry in ([0-9.]+)s", msg)
+            delay = float(m.group(1)) + 2.0 if m else 30.0
+            delay = max(delay, GEMINI_MIN_CALL_INTERVAL_S)
+            print(f"  [rate-limit] 429 received; sleeping {delay:.1f}s and retrying ({rl_attempt + 1}/{GEMINI_RATE_LIMIT_RETRIES})")
+            await asyncio.sleep(delay)
+    # Should not reach here
+    raise SystemExit(f"Gemini rate-limit retries exhausted: {last_err}")
 
 
 def _build_validator() -> Any:
