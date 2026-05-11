@@ -1,0 +1,77 @@
+91553 VEG SCHEZWAN RICE          220 fried rice []                    Yes
+91554 EGG FRIED RICE             220 fried rice []                    Yes
+91555 CHICKEN FRIED RICE         260 fried rice []                    Yes
+91556 MIXED FRIED RICE           320 fried rice []                    Yes
+91557 VEG MANCHURIA              180 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91558 PANEER 65                  220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91559 PANEER CHILLI              220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91560 PANEER MANCHURIA           220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91561 MUSHROOM 65                220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91562 MUSHROOM CHILLI            220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91563 MUSHROOM MANCHURIA         220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91564 BABYCORN 65                220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91565 BABYCORN CHILLI            220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91566 BABYCORN MANCHURIA         220 veg starters[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91567 GOBI 65                    250 veg starters[]                   Yes
+91568 GOBI CHILLI                250 veg starters[]                   Yes
+91569 GOBI MANCHURIA             250 veg starters[]                   Yes
+91570 PANEER MAJESTIC            280 veg starters[]                   Yes
+91571 EGG 65                     180 non veg starters
+                                                 []                   Yes
+91572 EGG CHILLI                 180 non veg starters
+                                                 []                   Yes
+91573 EGG MANCHURIA              180 non veg starters
+                                                 []                   Yes
+91574 CHICKEN 65                 240 non veg starters
+                                                 [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91575 CHICKEN CHILLI             240 non veg starters
+                                                 [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91576 CHICKEN MANCHURIA          240 non veg starters
+                                                 [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91577 CHICKEN 555                340 non veg starters
+                                                 []                   Yes
+91578 CHICKEN MAJESTIC           340 non veg starters
+                                                 []                   Yes
+91579 CHICKEN DRUMSTICK          280 non veg starters
+                                                 []                   Yes
+91580 CHICKEN LOLLYPOP           280 non veg starters
+                                                 []                   Yes
+91581 PEPPER CHICKEN             290 non veg starters
+                                                 []                   Yes
+91582 CASHNET CHICKEN            320 non veg starters
+                                                 []                   Yes
+91583 CHICKEN FRY                260 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91584 TELANGANA KODI VEPUDU      280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91585 PARCHIMIRCHI KODI VEPUDU   280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91586 MIRYALA KODI VEPUDU        280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91587 GUNTURU KODI VEPUDIJ       280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91588 GHEE KODI VEPUDU           280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91589 KOTHIMEER CHICKEN          280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91590 KARIPAKU CHICKEN FRY       280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91591 NALLA KARAM KODI FRY       280 South Indian[{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91592 FISH FRY                   300 Seafood [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes
+91593 APOLLO FISH                300 Seafood [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                      Yes

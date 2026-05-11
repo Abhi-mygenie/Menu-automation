@@ -1,0 +1,30 @@
+{
+  "request_kind": "text_only",
+  "gemini_model": "gemini-2.5-flash",
+  "schema_version": "gemini-extract-schema-v1.2",
+  "prompt_version": "extract-v1",
+  "preprocessing_version": "g7a-textocr-v1",
+  "import_id": "smoke-MENU-v0.1.0-0007",
+  "source_file": "Ghatkesar family dhaba.pdf",
+  "dataset_id": "MENU-v0.1.0-0007",
+  "dataset_version": "v0.1.0-PROPOSED",
+  "sha256": "e57e64a2fd9b8c2e69774eef7011aef78baef1f29189210e9e4d25f9200831a6",
+  "chunk_label": "page-03-of-13",
+  "pages_in_payload": [
+    3
+  ],
+  "total_pages_in_source": 13,
+  "text_parts": [
+    {
+      "page_number": 3,
+      "extraction_method": "pdftotext-low",
+      "char_count": 4620,
+      "letter_ratio": 0.292,
+      "notes": [
+        "pdftotext_insufficient(chars=4620,letter_ratio=0.29) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "91594 PRAWNS FRY              320 Seafood [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91595 LOOSE PRAWNS            320 Seafood [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91596 PRAWNS 65               380 Seafood []                      Yes\n91597 PRAWNS CHILLI           380 Seafood []                      Yes\n91598 PRAWNS MANCHURIA        380 Seafood []                      Yes\n91599 PRAWNS CURRY            300 Seafood [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91600 FISH CURRY              300 Seafood [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91601 MUTTON FRY              360 Mutton [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91602 MUTTON GHEE ROAST       380 Mutton [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91603 MUTTON BOTTI FRY        200 Mutton [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91604 MUTTON CURRY            350 Mutton [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91605 MUTTON ROAGAN GOSE      350 Mutton [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91606 GONGURA MUTTON          420 Mutton []                       Yes\n91607 BUTTER CHICKEN          280 Chicken [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91608 KADAI CHICKEN           280 Chicken [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91609 CHICKEN CURRY           260 Chicken [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91610 METHI CHICKEN           280 Chicken [{\"name\":\"Size\",\"type\":\"single\",\"min\":0,\"max\":0,\"requir\n                                                                  Yes\n91611 KAJU CHICKEN            380 Chicken []                      Yes\n91612 CHICKEN KEEMA MASALA    380 Chicken []                      Yes\n91613 PUNJABI CHICKEN         340 Chicken []                      Yes\n91614 GONGURA CHICKEN         340 Chicken []                      Yes\n91615 CHEFS SPL CURRY         420 Chicken []                      Yes\n91616 EGG CURRY               180 Egg Curry [{\"name\":\"choice of Juice\",\"type\":\"single\",\"min\":0,\"max\n                                                                  Yes\n91617 EGG BURJI               180 Egg Curry [{\"name\":\"choice of Juice\",\"type\":\"single\",\"min\":0,\"max\n                                                                  Yes\n91618 EGG MAHARANI            250 Egg Curry []                    Yes\n91619 TANDOORI ROTI            30 Bread     []                    Yes\n91620 BUTTER NAAN              60 Bread     []                    Yes\n91621 PLAIN NAAN               40 Bread     []                    Yes\n91622 GARLIC NAAN              70 Bread     []                    Yes\n91623 RUMAL ROTI               35 Bread     []                    Yes\n91624 LACHA PARATHA            60 Bread     []                    Yes\n91625 ALOO KULCHA             100 Bread     []                    Yes\n91626 GOBI KULCHA             100 Bread     []                    Yes\n91627 PANEER KULCHA           120 Bread     []                    Yes\n91628 CHICKEN FAMILY PACK     750 Family packs\n                                            []                    Yes\n91629 SPL CHICKEN FAMILY      850 Family packs\n                                            []                    Yes\n91630 MUTTON FAMILY           950 Family packs\n                                            []                    Yes\n91631 MIXED FAMILY           1200 Family packs\n                                            []                    Yes\n91632 VEG FAMILY              700 Family packs\n                                            []                    Yes\n91633 PANEER FAMILY           800 Family packs\n                                            []                    Yes\n91634 BUTTER MILK              60 Beverage []                     Yes"
+    }
+  ]
+}

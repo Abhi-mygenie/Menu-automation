@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-05-11T18:48:38Z",
+  "docs": [
+    {
+      "dataset_id": "MENU-v0.1.0-0007",
+      "source_file": "Ghatkesar family dhaba.pdf",
+      "page_count": 13,
+      "total_text_chars": 32569,
+      "chunked": true,
+      "chunk_count": 13,
+      "payload_path": "/app/scripts/_g7a_staging/payloads/MENU-v0.1.0-0007"
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0013",
+      "source_file": "Akula Organics.pdf",
+      "page_count": 4,
+      "total_text_chars": 6226,
+      "chunked": false,
+      "chunk_count": 1,
+      "payload_path": "/app/scripts/_g7a_staging/payloads/MENU-v0.1.0-0013"
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0023",
+      "source_file": "sona chadi.pdf",
+      "page_count": 1,
+      "total_text_chars": 1116,
+      "chunked": false,
+      "chunk_count": 1,
+      "payload_path": "/app/scripts/_g7a_staging/payloads/MENU-v0.1.0-0023"
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0024",
+      "source_file": "south indian dishes.pdf",
+      "page_count": 3,
+      "total_text_chars": 2700,
+      "chunked": false,
+      "chunk_count": 1,
+      "payload_path": "/app/scripts/_g7a_staging/payloads/MENU-v0.1.0-0024"
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0025",
+      "source_file": "spicy.pdf",
+      "page_count": 2,
+      "total_text_chars": 3638,
+      "chunked": false,
+      "chunk_count": 1,
+      "payload_path": "/app/scripts/_g7a_staging/payloads/MENU-v0.1.0-0025"
+    }
+  ]
+}

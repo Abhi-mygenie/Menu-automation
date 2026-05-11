@@ -1,0 +1,125 @@
+{
+  "dataset_id": "MENU-v0.1.0-0007",
+  "source_file": "Ghatkesar family dhaba.pdf",
+  "page_count": 13,
+  "pages": [
+    {
+      "page_number": 1,
+      "method": "pdftotext-low",
+      "char_count": 5801,
+      "letter_ratio": 0.2846061023961386,
+      "notes": [
+        "pdftotext_insufficient(chars=5801,letter_ratio=0.28) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 2,
+      "method": "pdftotext-low",
+      "char_count": 6193,
+      "letter_ratio": 0.29759405780720166,
+      "notes": [
+        "pdftotext_insufficient(chars=6193,letter_ratio=0.30) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 3,
+      "method": "pdftotext-low",
+      "char_count": 4620,
+      "letter_ratio": 0.2917748917748918,
+      "notes": [
+        "pdftotext_insufficient(chars=4620,letter_ratio=0.29) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 4,
+      "method": "pdftotext",
+      "char_count": 128,
+      "letter_ratio": 0.4921875,
+      "notes": []
+    },
+    {
+      "page_number": 5,
+      "method": "pdftotext-low",
+      "char_count": 3668,
+      "letter_ratio": 0.20283533260632497,
+      "notes": [
+        "pdftotext_insufficient(chars=3668,letter_ratio=0.20) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 6,
+      "method": "pdftotext-low",
+      "char_count": 2418,
+      "letter_ratio": 0.27129859387923905,
+      "notes": [
+        "pdftotext_insufficient(chars=2418,letter_ratio=0.27) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 7,
+      "method": "pdftotext-low",
+      "char_count": 2418,
+      "letter_ratio": 0.27129859387923905,
+      "notes": [
+        "pdftotext_insufficient(chars=2418,letter_ratio=0.27) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 8,
+      "method": "pdftotext-low",
+      "char_count": 164,
+      "letter_ratio": 0.2926829268292683,
+      "notes": [
+        "pdftotext_insufficient(chars=164,letter_ratio=0.29) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 9,
+      "method": "pdftotext-low",
+      "char_count": 3063,
+      "letter_ratio": 0.32125367286973555,
+      "notes": [
+        "pdftotext_insufficient(chars=3063,letter_ratio=0.32) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 10,
+      "method": "pdftotext",
+      "char_count": 1967,
+      "letter_ratio": 0.4667005592272496,
+      "notes": []
+    },
+    {
+      "page_number": 11,
+      "method": "pdftotext",
+      "char_count": 1967,
+      "letter_ratio": 0.4667005592272496,
+      "notes": []
+    },
+    {
+      "page_number": 12,
+      "method": "pdftotext",
+      "char_count": 143,
+      "letter_ratio": 0.4825174825174825,
+      "notes": []
+    },
+    {
+      "page_number": 13,
+      "method": "pdftotext-low",
+      "char_count": 19,
+      "letter_ratio": 0.9473684210526315,
+      "notes": [
+        "pdftotext_insufficient(chars=19,letter_ratio=0.95) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    }
+  ]
+}

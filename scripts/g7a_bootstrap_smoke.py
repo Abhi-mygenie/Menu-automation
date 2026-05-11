@@ -192,8 +192,9 @@ def _tesseract_page(pdf: Path, page_no: int) -> str:
             "-gray",
             str(pdf), str(prefix),
         ])
-        # pdftoppm output: prefix-<page_no>.ppm (zero-padded for multi-digit jobs)
-        candidates = sorted(td_path.glob("page-*.ppm"))
+        # pdftoppm output: prefix-<page_no>.ppm (color) or .pgm (with -gray);
+        # zero-padded for multi-digit jobs.
+        candidates = sorted(td_path.glob("page-*.p[pg]m"))
         if not candidates:
             return ""
         img = candidates[0]

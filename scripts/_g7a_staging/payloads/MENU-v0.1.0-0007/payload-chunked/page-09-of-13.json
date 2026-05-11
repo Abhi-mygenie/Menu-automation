@@ -1,0 +1,30 @@
+{
+  "request_kind": "text_only",
+  "gemini_model": "gemini-2.5-flash",
+  "schema_version": "gemini-extract-schema-v1.2",
+  "prompt_version": "extract-v1",
+  "preprocessing_version": "g7a-textocr-v1",
+  "import_id": "smoke-MENU-v0.1.0-0007",
+  "source_file": "Ghatkesar family dhaba.pdf",
+  "dataset_id": "MENU-v0.1.0-0007",
+  "dataset_version": "v0.1.0-PROPOSED",
+  "sha256": "e57e64a2fd9b8c2e69774eef7011aef78baef1f29189210e9e4d25f9200831a6",
+  "chunk_label": "page-09-of-13",
+  "pages_in_payload": [
+    9
+  ],
+  "total_pages_in_source": 13,
+  "text_parts": [
+    {
+      "page_number": 9,
+      "extraction_method": "pdftotext-low",
+      "char_count": 3063,
+      "letter_ratio": 0.321,
+      "notes": [
+        "pdftotext_insufficient(chars=3063,letter_ratio=0.32) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "Veg   Recommended\n              DineIn   TakeAway Delivery   Status   food_orderComplementary\n                                                                      Complementary_price\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nno    yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0\nyes   yes     Yes      Yes      Yes        active           0 no      0"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+91635 SWEET LASSI    120 Beverage []   Yes
+91636 COOL DRINK       1 Beverage []   Yes
+91637 WATER BOTTLE     1 Beverage []   Yes

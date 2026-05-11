@@ -1,0 +1,51 @@
+{
+  "request_kind": "text_only",
+  "gemini_model": "gemini-2.5-flash",
+  "schema_version": "gemini-extract-schema-v1.2",
+  "prompt_version": "extract-v1",
+  "preprocessing_version": "g7a-textocr-v1",
+  "import_id": "smoke-MENU-v0.1.0-0024",
+  "source_file": "south indian dishes.pdf",
+  "dataset_id": "MENU-v0.1.0-0024",
+  "dataset_version": "v0.1.0-PROPOSED",
+  "sha256": "c7f66065388f2848ed4fa8f7ceee35083dd42f0418af30acd64f4b9a09162a27",
+  "chunk_label": null,
+  "pages_in_payload": [
+    1,
+    2,
+    3
+  ],
+  "total_pages_in_source": 3,
+  "text_parts": [
+    {
+      "page_number": 1,
+      "extraction_method": "tesseract",
+      "char_count": 1083,
+      "letter_ratio": 0.681,
+      "notes": [
+        "pdftotext_insufficient(chars=0,letter_ratio=0.00) -> ocr"
+      ],
+      "text": "South Indian Dishes- South Indian Dishes~\nDOSA UTTAPAM\nPlain Dosa 70 Masala Uttapam 80\nPlain Paper Dosa 80 Coconut Uttapam 95\nPlain Butter Dosa 90 Tomato Uttapam 100\nPlain Dhaniya Dosa 90 pci pe Ee\n\u0c15 \u0c1c 6656 Uttapam 140\nPlain Mayonnaise Dosa 100 Sandwich Uttapam 450\nPlain Paneer Dosa 110 Mushroom Uttapam 150\nPlain Cheese Dosa 110 Cheese & Mushroom Uttapam 170\nGupta's Special Uttapam 180\nMasala Dosa 80\nMasala Paper Dosa 90 IDL! & VADA\nIdli [2 Pieces] 45\nMasala Dhaniya Dosa , 100 Idli & Vada [1 Piece Each] 50\nMasala Butter Dosa | 110 Finger Fried Idli cou 4)\nMasala Paper Butter pees 120 Mixed Fried Idli 8 |\nMasala Special 0092. 140 Dry Vada [2 Pieces] \\\nMasala Mayonnaise Dosa 140 Sambar Vada [2 Pieces] B70\nMasala Cheese Dosa 150 Dahi Vada [2 Pieces] 65\nee \u0939\u093f\u0924 Cheese PaperDosa 160 Dahl Vada [UB iece] | \u092a\u0941 45\n\u00a9 Masala Mushroom Dosa 160 : ee 61... \u0c2f\n\u0c30\u0c4d\u200c. Extra Bhuji er 5\nog Siptass Gupta's a cia Paneer Dosa 180 | \u0c33\u0c4d\u200c 9 dep Afteclocins The Order Kind Order Kindly \"\u0c26\u0c41\u0c32\u0c41 Minutes Atleast\n\u00bb *For Parcel Container Charges Are Applicable Pmmmamirom cre Sublect to Avallability ae |"
+    },
+    {
+      "page_number": 2,
+      "extraction_method": "tesseract",
+      "char_count": 757,
+      "letter_ratio": 0.627,
+      "notes": [
+        "pdftotext_insufficient(chars=0,letter_ratio=0.00) -> ocr"
+      ],
+      "text": "North Indian Dishes~ North Indian Dishes~\nVEGETABLES\nPARATHA & BHATURE Kashmiri Dum Aloo 120\nLachcha Paratha [1 Piece] 30 Chana Masala 150\nAloo Paratha [1 Piece] 50 Mixed Veg. 170\nGobi Paratha [1 Pieces] 50 Chana Paneer 180\nMatar Paratha [1 Pieces] 50 Matar Paneer 180\nPaneer Paratha [1 Pieces] 60 Malai Kofta 190\nPalak Paneer 190\nChole Bhature [2 Pieces] 100 Shahi Paneer 200\nExtra Bhature [1 Piece] 30 Paneer Butter Masala 210\nExtra Chole 25 Paneer Masala 220\n\u0c15 RICE & PULAO .\n~ Steam Rice goo \u0c33\u0c4d\u200c\n\u096b | Jeera Rice / 1009\n(| \u00a9 4 Coriander Rice ) \u096c20 =\n% Veg. Fried Rice % 140\nPaneer Rice 180\n\" \u0c2f\u0c4a Mushroom Rice 190\n\u0c28\u0c28 Gupta's Special Rice 210\nfis ~ | _ Matar tht. \u091a 160\neC \u0c07 \\ __ Kashmiri Pulao ae | 210\nBy -For Parcel (00212 Charoe: Are Applicable Rots, ea"
+    },
+    {
+      "page_number": 3,
+      "extraction_method": "tesseract",
+      "char_count": 860,
+      "letter_ratio": 0.648,
+      "notes": [
+        "pdftotext_insufficient(chars=0,letter_ratio=0.00) -> ocr"
+      ],
+      "text": "Chiness Dishi- Beverage \u0c08 Dips~\nCHINESE DIPS\nae Alp tedatett re Masala Dahi F/H 60/40\naneer Chowmein 100\nMushroom Chowmein 120 Coconut Chutney 25\nGravy Chowmein 130 Green Chutney 15\nGupta\u2019s Special Chowmein 160 Red Chutney 15\nVeg. Chopsuey 180 Extra Cheese 45\nChilli Potato (Gravy / Dry) 140\nVeg. Manchurian (Gravy / Dry) 160 Tea TEA & COFFEE 15\nCrispy Chilli Baby Corn 170 1\nChilli Mushroom (Gravy/Dry) 170 Lemon Tea 25\nChilli Paneer (Gravy / Dry) 180 Green Tea 30\n| \u096b\nVeg. Roll ROLL \u0930\u093e\u092e Coffee gee | 30 \u0c38\u0c4d\u200c\nPaneer Roll f 80 {\nMushroom Roll hia \u0939\u0942 ~~ 90 Plain Lassi | \u0c15\u0c4d\u200c \u0c36\nPaneer Mushroom Roll 110 Mango Lassi \u00a5 70\nPapri Chaat 70 , WATER\nFrench Fries 90 Package Drinking Water [500 Ml] 10\n\u00abVeg: Pakora [6 Pieces] 100 Package Drinking Water [1 Ltr] 20\n_ Paneer Pakora [8 Pieces] 160 | - <. ane \\\n\u201cFor Parcel Container Charges Are Applicable \u0c30\u0c32 ie se\n\u0c1f\u0c41 \u0c6e \u096b ~~"
+    }
+  ]
+}
