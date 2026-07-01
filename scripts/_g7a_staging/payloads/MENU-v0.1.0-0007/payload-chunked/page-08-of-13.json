@@ -1,0 +1,30 @@
+{
+  "request_kind": "text_only",
+  "gemini_model": "gemini-2.5-flash",
+  "schema_version": "gemini-extract-schema-v1.2",
+  "prompt_version": "extract-v1",
+  "preprocessing_version": "g7a-textocr-v1",
+  "import_id": "smoke-MENU-v0.1.0-0007",
+  "source_file": "Ghatkesar family dhaba.pdf",
+  "dataset_id": "MENU-v0.1.0-0007",
+  "dataset_version": "v0.1.0-PROPOSED",
+  "sha256": "e57e64a2fd9b8c2e69774eef7011aef78baef1f29189210e9e4d25f9200831a6",
+  "chunk_label": "page-08-of-13",
+  "pages_in_payload": [
+    8
+  ],
+  "total_pages_in_source": 13,
+  "text_parts": [
+    {
+      "page_number": 8,
+      "extraction_method": "pdftotext-low",
+      "char_count": 164,
+      "letter_ratio": 0.293,
+      "notes": [
+        "pdftotext_insufficient(chars=164,letter_ratio=0.29) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "1.png   0   571   0 Percent   00:00:00 23:59:00 Normal\n1.png   0   571   0 Percent   00:00:00 23:59:00 Normal\n1.png   0   571   0 Percent   00:00:00 23:59:00 Normal"
+    }
+  ]
+}

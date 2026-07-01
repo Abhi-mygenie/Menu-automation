@@ -1,0 +1,34 @@
+{
+  "summary": "CR-MENU-0001: Pre-Export Correction Diff View — all 7 test cases passed. Export modal for Akula Organics shows CORRECTIONS TO REVIEW section with 3 items (EDITED, DELETED, UNCLEAR). Ghatkesar shows all-approved green state. Export button regression working.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "N/A (frontend-only test)",
+    "frontend": "100% (7/7 tests passed)"
+  },
+  "test_credentials": "No authentication required",
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "main_agent_can_self_test": false,
+  "context_for_next_testing_agent": "CR-MENU-0001 fully verified. ExportModal receives pages and corrections props, buildDiffItems() correctly filters non-approve corrections. data-testids: export-corrections-diff, export-diff-item-{page}-{rowNo}, export-diff-unclear-warning, export-diff-all-approved, export-confirm-btn all working. Akula Organics (0013) shows 3 diff items (P1·R2 EDITED Idli→Plain Dosa, P3·R2 DELETED Stuffed Mirchi Bajji, P3·R3 UNCLEAR Brinjal Bajji with POS warning). Ghatkesar (0007) shows all-approved green state with no diff list.",
+  "test_results": {
+    "T1": "PASS — Export modal opens with CORRECTIONS TO REVIEW section showing count=3",
+    "T2": "PASS — EDITED row P1·R2 shows 'Idli (1 pc)' strikethrough → 'Plain Dosa' with blue EDITED badge",
+    "T3": "PASS — DELETED row P3·R2 shows 'Stuffed Mirchi Bajji (4 pcs)' in strikethrough with red DELETED badge",
+    "T4": "PASS — UNCLEAR row P3·R3 shows amber UNCLEAR badge + POS warning 'Will be exported with original AI values — verify before POS push'",
+    "T5": "PASS — Ghatkesar shows green all-approved state 'All reviewed rows were approved — nothing to inspect', no diff list",
+    "T6": "PASS — Export button proceeds to done state with 'Download started' message, no errors",
+    "T7": "PASS — Review Summary shows all labels: Reviewed, Approved, Edited, Deleted, Unclear, Remaining, Notes reviewed"
+  }
+}

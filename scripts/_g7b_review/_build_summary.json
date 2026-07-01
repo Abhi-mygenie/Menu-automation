@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-05-11T21:46:50Z",
+  "archive_source": "/app/memory/menu-import/MENU_AI_FIRST_PASS_OUTPUT_SMOKE_v0.1.0.json",
+  "workbooks": [
+    {
+      "dataset_id": "MENU-v0.1.0-0007",
+      "source_file": "Ghatkesar family dhaba.pdf",
+      "path": "/app/scripts/_g7b_review/MENU-v0.1.0-0007_review.xlsx",
+      "pages": 13,
+      "rows": 126,
+      "menu_notes": 0,
+      "ocr_low_confidence": false
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0013",
+      "source_file": "Akula Organics.pdf",
+      "path": "/app/scripts/_g7b_review/MENU-v0.1.0-0013_review.xlsx",
+      "pages": 4,
+      "rows": 74,
+      "menu_notes": 7,
+      "ocr_low_confidence": false
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0023",
+      "source_file": "sona chadi.pdf",
+      "path": "/app/scripts/_g7b_review/MENU-v0.1.0-0023_review.xlsx",
+      "pages": 1,
+      "rows": 42,
+      "menu_notes": 0,
+      "ocr_low_confidence": true
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0024",
+      "source_file": "south indian dishes.pdf",
+      "path": "/app/scripts/_g7b_review/MENU-v0.1.0-0024_review.xlsx",
+      "pages": 3,
+      "rows": 93,
+      "menu_notes": 5,
+      "ocr_low_confidence": false
+    },
+    {
+      "dataset_id": "MENU-v0.1.0-0025",
+      "source_file": "spicy.pdf",
+      "path": "/app/scripts/_g7b_review/MENU-v0.1.0-0025_review.xlsx",
+      "pages": 2,
+      "rows": 77,
+      "menu_notes": 5,
+      "ocr_low_confidence": false
+    }
+  ],
+  "scope": "G7B Smoke Set review only (5 of 32 menus)",
+  "non_goals": [
+    "No Gemini call",
+    "No dataset freeze",
+    "No POS sync",
+    "No mutation of canonical placeholder JSON",
+    "No processing of the remaining 27 menus"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "request_kind": "text_only",
+  "gemini_model": "gemini-2.5-flash",
+  "schema_version": "gemini-extract-schema-v1.2",
+  "prompt_version": "extract-v1",
+  "preprocessing_version": "g7a-textocr-v1",
+  "import_id": "smoke-MENU-v0.1.0-0013",
+  "source_file": "Akula Organics.pdf",
+  "dataset_id": "MENU-v0.1.0-0013",
+  "dataset_version": "v0.1.0-PROPOSED",
+  "sha256": "7d4233768d832e696ec6800f9b0827fa3b7de0630e3ffe9b6d0ef024929a5d90",
+  "chunk_label": null,
+  "pages_in_payload": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "total_pages_in_source": 4,
+  "text_parts": [
+    {
+      "page_number": 1,
+      "extraction_method": "pdftotext-low",
+      "char_count": 1781,
+      "letter_ratio": 0.297,
+      "notes": [
+        "pdftotext_insufficient(chars=1781,letter_ratio=0.30) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "Organic Tiffin\u2019s (7am to 11.30am & 4pm to 10.30pm)\n\u2022   Idli (2 pcs)                            .......... \u20b960\n\u2022   Idli (1 pc)                             .......... \u20b935\n\u2022   Ghee Podi Idli (2 Pcs)                  .......... \u20b980\n\u2022   Ghee Sambar Idli (2 pcs)                .......... \u20b980\n\u2022   Vada (2 pcs)                            .......... \u20b980\n\u2022   Vada (1 pc)                             .......... \u20b945\n\u2022   Sambaar Vada (2 Pcs)                    .......... \u20b990\n\u2022   Sambaar Vada (1 Pc)                     .......... \u20b950\n\u2022   Perugu (Dahi) Vada (1 Pc)               .......... \u20b960\n\u2022   Ghee Pongal                             .......... \u20b995\n\u2022   Upma                                    .......... \u20b985\n\u2022   Ghee Plain Dosa                          ..........\u20b980\n\u2022   Ghee Karam Dosa                         ......... \u20b9100\n\u2022   Ghee Onion Dosa                         ......... \u20b9100\n\u2022   Mulbagal dosa                             \u2026\u2026.\u20b9120\n\u2022   Ghee Utappam                             \u2026.\u2026.\u20b9110\n\u2022   Akula's Special Masala Dosa             ......... \u20b9130\n\u2022   Millet Ghee Plain Dosa .                ......... \u20b9100\n\u2022   Millet Ghee Karam Dosa                  ......... \u20b9120\n\u2022   Millet Ghee Onion Dosa                  ......... \u20b9120\n\u2022   Millet Ghee Utappam                      \u2026.\u2026.\u20b9120\n\u2022   Millet Special Masala Dosa              ......... \u20b9145\n\u2022   Chole Puri (4 pcs)                       ........ \u20b9140\n\u2022   Pesarattu                                .........\u20b9130\n\u2022   Multi Grain Dosa                         .........\u20b9130\n\n\nFresh food takes time!\nPlease allow at least 15 minutes as we prepare your order with care. \ud83c\udf3f\n\nTakeaway packing charges \u20b910/- per item. \ud83c\udf3f\n\n\n\n                                  Akula Organics\n          A Platform for Healthy & Sustainable Living Through Natural Products"
+    },
+    {
+      "page_number": 2,
+      "extraction_method": "pdftotext-low",
+      "char_count": 1503,
+      "letter_ratio": 0.35,
+      "notes": [
+        "pdftotext_insufficient(chars=1503,letter_ratio=0.35) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "Healthy Treats (7am to 11.30am)\n\u2022   Millet Health Booster Drink (With Milk)                   .......... Coming Soon\n\u2022   Millet Health Booster Drink (With Curd)                    ......... Coming Soon\n\u2022   Fermented Rice (Chaddi Annam)                              ......... Coming Soon\n\u2022   Steamed Vegetable Bowl                                     ......... Coming Soon\n\u2022   Fruit Bowl                                                 ......... Coming Soon\n\n\n\n\nLunch (12.30pm to 4.00pm)\n\u2022   Quick Lunch (5 Varieties of Rice)                                  .......... \u20b9179\n    Five Traditional Rice Varieties \u2014 Quick, Pure & Satisfying!\n\n\u2022   Akula\u2019s Special Homely Lunch                                       .......... \u20b9199\n    Wholesome, homemade-style meal prepared with love.\n\nTakeaway packing charges \u20b920/- per meal. \ud83c\udf3f\n\n\n\n\nBeverages (7am to 11pm)\n\u2022   Kulhad Tea                                                         .......... \u20b925\n\u2022   Kulhad Coffee                                                      .......... \u20b945\n\u2022   Filter Coffee                                                      .......... \u20b950\n\u2022   Bisleri Water (500ml)                                              .......... \u20b910\n\u2022   Bisleri Water (1 Ltr)                                              .......... \u20b920\n\u2022   Nannari Sharbat                                                    .......... \u20b980\n\n\n\n\n                                    Akula Organics\n           A Platform for Healthy & Sustainable Living Through Natural Products"
+    },
+    {
+      "page_number": 3,
+      "extraction_method": "pdftotext-low",
+      "char_count": 1268,
+      "letter_ratio": 0.324,
+      "notes": [
+        "pdftotext_insufficient(chars=1268,letter_ratio=0.32) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "Organic Snacks (7am to 11.30am & 4pm to 10.30pm)\n\n\u2022   Onion Pakodi (10 pcs)                    .......... \u20b9100\n\u2022   Stuffed Mirchi Bajji (4 pcs)              ......... \u20b9110\n\u2022   Brinjal Bajji (4 Pcs)                    .......... \u20b9110\n\u2022   Potato Bajji (6 pcs)                     .......... \u20b9100\n\u2022   Banana Bajji (6 pcs)                     .......... \u20b9100\n\u2022   Aloo Bonda (4 pcs)                       .......... \u20b9100\n\u2022   Sprouts Cutlet (4 pcs)                   .......... \u20b9110\n\u2022   Onion Samosa (4 pcs)                     .......... \u20b990\n\u2022   Corn Samosa (4 pcs)                      .......... \u20b9110\n\n\n\n\nOrganic Chat (4pm to 10.30pm)\n\u2022   Aloo Samosa (2 pcs)                      .......... \u20b975\n\u2022   Aloo Samosa (1 pc)                       .......... \u20b940\n\u2022   Samosa Chat                               .......... \u20b975\n\u2022   Kachori (2 pcs)                          .......... \u20b985\n\u2022   Kachori (1 pc)                           .......... \u20b945\n\u2022   Kachori Chat                             .......... \u20b985\n\n\n\nFresh food takes time!\nPlease allow at least 15 minutes as we prepare your order with care. \ud83c\udf3f\n\n\n\nTakeaway packing charges \u20b910/- per item. \ud83c\udf3f\n\n\n\n\n                                   Akula Organics\n          A Platform for Healthy & Sustainable Living Through Natural Products"
+    },
+    {
+      "page_number": 4,
+      "extraction_method": "pdftotext",
+      "char_count": 1674,
+      "letter_ratio": 0.427,
+      "notes": [],
+      "text": "Fresh Fruit Juices \u2013 (7am to 11pm)\n\n\u2022   Watermelon Cooler Juice                        .......... \u20b990\n\u2022   Watermelon blended with a hint of mint.        .......... \u20b995\n\u2022   Pineapple Punch Juice                          .......... \u20b9100\n\u2022   Pomegranate Juice                              .......... \u20b9150\n\u2022   Lemon Ginger Detox Juice                       .......... \u20b9100\n\u2022   Apple Beetroot Carrot (ABC) Blend Juice        .......... \u20b9120\n\u2022   Mosambi (Sweet Lime) Juice                     .......... \u20b9100\n\u2022   Pumpkin Juice                                  \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Tender Coconut Water (Natural)                  \u2026\u2026. Coming Soon \ud83c\udf3f)\n\u2022   Mixed Fruit Juice                              \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Amla Honey Booster                             \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\n\n\nSmoothies & Health Blends \u2013 (7am to 11pm)\n\n\u2022   Avocado Smoothie                               \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Sapota (Chikoo) Smoothie                       \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Banana Oats Smoothie                           \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Mango Almond Smoothie (Seasonal)               \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Green Detox Smoothie                           \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Dates & Dry Fruits Smoothie                    \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Strawberry Yogurt Smoothie (Seasonal)          \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Tender Coconut Smoothie                        \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Panut Butter Banana Smoothie                   \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\u2022   Ragi Malt Smoothie (Traditional)               \u2026\u2026. (Coming Soon \ud83c\udf3f)\n\n\n\n\n                                  Akula Organics\n          A Platform for Healthy & Sustainable Living Through Natural Products"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "project": "MyGenie POS / Menu Automation",
+  "registry_version": "1.0.0",
+  "last_updated": "2026-06-27",
+  "change_requests": {
+    "total": 2,
+    "open": 2,
+    "closed": 0,
+    "entries": [
+      {
+        "id": "CR-MENU-0001",
+        "title": "Pre-Export Correction Diff View",
+        "priority": "P1",
+        "status": "CLOSED — implemented & tested 2026-07-01",
+        "phase": "Review Tool — Post Phase E",
+        "gate_required": "N/A",
+        "created": "2026-07-01",
+        "file": "change_requests/CR-MENU-0001.md",
+        "decisions_locked": ["Q1=B", "Q2=B", "Q3=A", "Q4=B"],
+        "follow_on_cr": "CR-MENU-0002",
+        "files_touched": [
+          "frontend/src/components/review/ExportModal.jsx",
+          "frontend/src/pages/review/ReviewWorkspace.jsx"
+        ]
+      },
+      {
+        "id": "CR-MENU-0002",
+        "title": "Note Corrections in Pre-Export Diff View",
+        "priority": "P2",
+        "status": "CLOSED — implemented & tested 2026-07-01",
+        "phase": "Review Tool — follow-on to CR-MENU-0001",
+        "gate_required": "N/A",
+        "created": "2026-07-01",
+        "file": "change_requests/CR-MENU-0002.md",
+        "depends_on": "CR-MENU-0001",
+        "parent_cr": "CR-MENU-0001",
+        "files_touched": [
+          "frontend/src/components/review/ExportModal.jsx",
+          "frontend/src/pages/review/ReviewWorkspace.jsx"
+        ]
+      }
+    ]
+  },
+  "bugs": {
+    "total": 1,
+    "open": 0,
+    "ready_to_close": 1,
+    "closed": 0,
+    "entries": [
+      {
+        "id": "BUG-042-B",
+        "title": "Hold-tab Collect payment path failure",
+        "severity": "SEV-2",
+        "status": "READY_TO_CLOSE",
+        "component": "POS (not menu-import)",
+        "created": "2026-05-11",
+        "evidence": "memory/bugs/BUG_042_B_SMOKE_SIGNOFF.md"
+      }
+    ]
+  },
+  "decisions": {
+    "total_closed": 8,
+    "total_deferred": 2,
+    "total_blocked_pos": 4,
+    "total_pending_owner": 5,
+    "closed": ["DEC-0001", "DEC-0002", "DEC-0003", "DEC-0004", "DEC-0005", "DEC-0006", "DEC-0007", "DEC-0008"],
+    "deferred": ["DEC-0009", "DEC-0010"],
+    "blocked_pos": ["DEC-POS-001", "DEC-POS-002", "DEC-POS-003", "DEC-POS-004"],
+    "pending_owner": ["Gates 1-7 sign-off", "Second reviewer nomination", "Stack reconciliation", "Leaked key revocation", "Database engine confirmation"]
+  },
+  "gates": {
+    "total": 7,
+    "signed_off": 0,
+    "pending": 7,
+    "entries": [
+      {"gate": 1, "title": "Requirements", "status": "PENDING"},
+      {"gate": 2, "title": "Architecture + Workflow", "status": "PENDING"},
+      {"gate": 3, "title": "DB Schema", "status": "PENDING"},
+      {"gate": 4, "title": "API Contract", "status": "PENDING"},
+      {"gate": 5, "title": "Review UI", "status": "PENDING"},
+      {"gate": 6, "title": "Learning Memory", "status": "PENDING"},
+      {"gate": 7, "title": "Implementation Phases", "status": "PENDING"}
+    ]
+  },
+  "handovers": {
+    "total": 4,
+    "entries": [
+      {"title": "DEPLOYMENT.md", "date": "2026-02"},
+      {"title": "DEPLOYMENT_HANDOVER.md", "date": "2026-02"},
+      {"title": "DEPLOYMENT_HANDOVER_E1.md", "date": "2026-05-11"},
+      {"title": "HANDOVER_2026_07_01.md", "date": "2026-07-01", "session_type": "Billed — Review Tool CR work", "crs_closed": ["CR-MENU-0001", "CR-MENU-0002"], "file": "memory/handover/HANDOVER_2026_07_01.md"}
+    ]
+  },
+  "releases": {
+    "total": 0,
+    "tags": [],
+    "entries": []
+  },
+  "datasets": {
+    "version": "v0.1.0",
+    "state": "PROPOSED",
+    "frozen": false,
+    "total_pdfs": 33,
+    "batches": 7,
+    "smoke_set_g7a": "DONE",
+    "smoke_set_g7b": "NOT_STARTED",
+    "remaining_pdfs": 28
+  },
+  "blockers": [
+    {"id": "BLOCK-001", "title": "Sunil G7B review not started", "owner": "Sunil"},
+    {"id": "BLOCK-002", "title": "Gates 1-7 unsigned", "owner": "Owner"},
+    {"id": "BLOCK-003", "title": "Stack contradiction unresolved", "owner": "Owner"},
+    {"id": "BLOCK-004", "title": "POS API unconfirmed", "owner": "POS team"},
+    {"id": "BLOCK-005", "title": "Leaked key revocation unconfirmed", "owner": "Owner"}
+  ],
+  "open_gaps": {
+    "total": 10,
+    "critical": 3,
+    "high": 3,
+    "medium": 1,
+    "low": 2
+  }
+}

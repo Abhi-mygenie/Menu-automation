@@ -1,0 +1,113 @@
+{
+  "theme": "Light",
+  "archetype": "Archetype 4: Swiss & High-Contrast",
+  "reasoning": "This is a data-heavy enterprise administration tool. It requires authority, clarity, and function-first design. The UI must get out of the way to allow users to focus on data validation. High contrast ensures readability during long review sessions.",
+  "typography": {
+    "headings": {
+      "family": "Cabinet Grotesk",
+      "import_url": "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,700,400&display=swap",
+      "weights": "400, 500, 700, 800",
+      "classes": "font-['Cabinet_Grotesk'] tracking-tight",
+      "rules": "Use for primary page headers and panel titles. High weight contrast (e.g., Bold for active, Regular for inactive)."
+    },
+    "body": {
+      "family": "IBM Plex Sans",
+      "import_url": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap",
+      "weights": "400, 500, 600",
+      "classes": "font-['IBM_Plex_Sans']",
+      "rules": "Use for all data table rows, labels, and standard text. Highly legible for dense layouts."
+    },
+    "mono": {
+      "family": "IBM Plex Mono",
+      "import_url": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap",
+      "classes": "font-['IBM_Plex_Mono']",
+      "rules": "Use specifically for raw extracted data points, IDs, prices, and rates to ensure perfect vertical alignment."
+    }
+  },
+  "colors": {
+    "background": {
+      "default": "#FFFFFF",
+      "subtle": "#F8FAFC"
+    },
+    "surface": {
+      "card": "#FFFFFF",
+      "panel": "#F1F5F9",
+      "border": "#E2E8F0"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#475569",
+      "disabled": "#94A3B8",
+      "inverse": "#FFFFFF"
+    },
+    "accents": {
+      "primary": "#002FA7",
+      "primary_hover": "#00227A",
+      "signal_red": "#E63946",
+      "warning_yellow": "#FFB703",
+      "success_green": "#10B981"
+    },
+    "rules": "95% of the UI must be monochrome. Color exists strictly to guide action. Approve = Green, Delete/Issue = Red, Primary CTA/Focus = Klein Blue. Tint neutral greys with cool blue (Slate scale in Tailwind)."
+  },
+  "layout_and_spacing": {
+    "grid_system": "The 'Control Room' Grid",
+    "rules": "High density, clear hierarchy. Use sharp edges (rounded-none or rounded-sm max 4px). Utilize visible grid borders ('The Technical Look') for panels and resizable split views. Every pixel must be utilized effectively.",
+    "spacing_scale": "Use tight gaps (gap-2 to gap-4) in the data table for density. Use generous padding (p-6, p-8) around the main application shell to prevent claustrophobia."
+  },
+  "components": {
+    "panels": {
+      "style": "Technical Grid Borders. Use 'border-collapse' style layouts. Panels separated by 1px solid borders (border-slate-200).",
+      "split_view": "Use react-resizable-panels. Drag handle must be visually distinct but minimal (1px width, expanding to 4px on hover, colored Klein Blue on active drag)."
+    },
+    "buttons": {
+      "primary": "Square or 2px radius. Background Klein Blue (bg-[#002FA7]), Text White. Solid, no gradient.",
+      "secondary": "Outline only. 1px solid border. Background transparent, Text Primary.",
+      "icon": "Use clear, unambiguous icons. Phosphor icons preferred.",
+      "action_row": "Small, dense icon buttons for inline table actions (Approve, Edit, Delete)."
+    },
+    "table": {
+      "style": "Dense tabular layout. 'border-b border-border/40'. No alternating row colors, instead use a very subtle hover effect (hover:bg-slate-50).",
+      "cells": "Padding py-2 px-3 for high density. Editable cells should visually indicate editability via a subtle dashed bottom border or a hover pencil icon."
+    },
+    "inputs": {
+      "style": "Flat backgrounds, 1px subtle border, sharp corners. Focus state MUST be high contrast: 'focus:ring-2 focus:ring-[#002FA7]/50 focus:border-[#002FA7]'."
+    },
+    "modals": {
+      "style": "Solid background, crisp 1px borders, sharp drop shadows (Neo-brutalist influence), absolutely no glassmorphism."
+    }
+  },
+  "icons": {
+    "library": "@phosphor-icons/react",
+    "installation": "yarn add @phosphor-icons/react",
+    "style": "Regular or Bold weight. Used strictly for utility actions (Approve, Edit, Delete, Warning, Zoom In/Out)."
+  },
+  "motion_and_interaction": {
+    "hover_states": "Crisp and immediate. Background shifts subtly, borders darken.",
+    "focus_states": "High contrast focus rings are MANDATORY for accessibility. Never rely on color alone.",
+    "transitions": "Fast (150ms), ease-out. No bouncy or slow animations. Strictly functional UI."
+  },
+  "screens": {
+    "S1_Review_Landing": "Grid of sharp-edged cards displaying the 5 PDFs. Progress bars (monochrome with Klein blue fill) showing review status (Rows reviewed vs total).",
+    "S2_Review_Workspace": "Main split view. Left: PDF Viewer wrapper with robust zoom controls overlaid at top or bottom. Right: Data Table. Sticky header with 'Complete & Export' CTA.",
+    "S3_Row_Detail_Edit": "Inline table editing for quick fixes, or a slide-out panel (Sheet component) for deeper row review and issue flagging.",
+    "S4_Add_Missing_Row": "Modal Dialog triggered from a sticky 'Add Row' button attached to the bottom of the table view.",
+    "S5_Page_Navigation": "Sticky footer/header in the PDF panel with intuitive Next/Prev page arrows and direct page number input.",
+    "S6_Review_Progress": "Mini dashboard metrics in the main header or a collapsible right sidebar showing session stats.",
+    "S7_Menu_Notes_Review": "A dedicated 'Notes' tab inside the data panel to review GST/tax/service charge notes detected by AI.",
+    "S8_Export_Completion": "Prominent CTA that validates if all rows are processed before allowing JSON export."
+  },
+  "testing": {
+    "attributes": "All interactive elements MUST include `data-testid` (e.g., `data-testid=\"btn-approve-row-1\"`)."
+  },
+  "media": {
+    "images": []
+  },
+  "instructions_to_main_agent": [
+    "Ensure global CSS imports Cabinet Grotesk, IBM Plex Sans, and IBM Plex Mono.",
+    "Customize Tailwind config to include the specified fonts and accent colors.",
+    "Implement the Layout using raw HTML/Tailwind for the split-view structure, utilizing react-resizable-panels.",
+    "For the data table, build a custom dense table instead of relying completely on a bloated third-party grid, but use Shadcn primitives for Dropdowns, Dialogs, and Selects.",
+    "Do NOT use 'Inter' for headings. Strictly enforce typography rules.",
+    "Remove border-radius classes across components to maintain the Swiss Brutalist / High-Contrast aesthetic (rounded-none or max rounded-sm)."
+  ]
+}

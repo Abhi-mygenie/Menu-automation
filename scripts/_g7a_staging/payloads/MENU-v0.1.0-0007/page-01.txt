@@ -1,0 +1,62 @@
+Id         Name                     Price     CategoryIdVariations Addons give_discount
+     91513 VEG HOTEN SOUP                 100 Soup        [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91514 CHICKEN CORN SOUP              120 Soup        [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91515 CHICKEN HOTEN SOUP             120 Soup        [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91516 VEG BIRYANI                    180 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91517 KAJU PANEER BIRYANI            230 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91518 PANEER BIRYANI                 230 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91519 MUSHROOM BIRYANI               230 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91520 KAJU BIRYANI                   280 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91521 CHICKEN BIRYANI                190 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91522 SPL CHICKEN BIRYANI            260 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91523 KABAB BIRYANI (FULL)           300 Biryani     []                   Yes
+     91524 CHICKEN FRY BIRYANI            200 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91525 TANDOORI CHICKEN BIRYANI 340 Biryani           []                   Yes
+     91526 MUTTON BIRYANI                 290 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91527 NALLI GOSH BIRYANI             440 Biryani     []                   Yes
+     91528 PRAWNS BIRYANI                 290 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91529 FISH BIRYANI                   290 Biryani     [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91530 MIXED BIRYANI                  420 Biryani     []                   Yes
+     91531 TANDOORI CHICKEN (FULL)        500 Tandoori []                      Yes
+     91532 TANDOORI CHICKEN (HALF)        280 Tandoori []                      Yes
+     91533 TANGHDI KABAB (4 PC)           280 Tandoori []                      Yes
+     91534 CHICKEN TIKKA (8 PIECES)       350 Tandoori []                      Yes
+     91535 FISH TIKKA                     360 Tandoori []                      Yes
+     91536 PANEER TIKKA                   320 Tandoori []                      Yes
+     91537 PANEER BUTTER MASALA           180 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91538 PALAK PANEER                   180 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91539 KADAI VEG                      180 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91540 DAL FRY                        160 veg curries []                   Yes
+     91541 DAL TADKA                      160 veg curries []                   Yes
+     91542 CHANA MASALA                   180 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91543 KAJU PANEER                    240 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91544 KADAI PANEER                   280 veg curries []                   Yes
+     91545 METHI CHAMAN                   280 veg curries []                   Yes
+     91546 MALAI KOFTHA                   280 veg curries []                   Yes
+     91547 MUSHROOM MASALA                220 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91548 MUTTER PANEER                  180 veg curries [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                               Yes
+     91549 TOMATO KAJU                    260 veg curries []                   Yes
+     91550 BABY CORN MASALA               280 veg curries []                   Yes
+     91551 SHAHI PANEER                   280 veg curries []                   Yes
+     91552 VEG FRIED RICE                 180 fried rice []                    Yes

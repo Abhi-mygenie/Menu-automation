@@ -1,0 +1,16 @@
+{
+  "dataset_id": "MENU-v0.1.0-0023",
+  "source_file": "sona chadi.pdf",
+  "page_count": 1,
+  "pages": [
+    {
+      "page_number": 1,
+      "method": "tesseract",
+      "char_count": 1116,
+      "letter_ratio": 0.3718637992831541,
+      "notes": [
+        "pdftotext_insufficient(chars=0,letter_ratio=0.00) -> ocr"
+      ]
+    }
+  ]
+}

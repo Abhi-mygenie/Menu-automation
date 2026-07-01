@@ -1,0 +1,44 @@
+{
+  "dataset_id": "MENU-v0.1.0-0013",
+  "source_file": "Akula Organics.pdf",
+  "page_count": 4,
+  "pages": [
+    {
+      "page_number": 1,
+      "method": "pdftotext-low",
+      "char_count": 1781,
+      "letter_ratio": 0.2970241437394722,
+      "notes": [
+        "pdftotext_insufficient(chars=1781,letter_ratio=0.30) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 2,
+      "method": "pdftotext-low",
+      "char_count": 1503,
+      "letter_ratio": 0.3499667332002661,
+      "notes": [
+        "pdftotext_insufficient(chars=1503,letter_ratio=0.35) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 3,
+      "method": "pdftotext-low",
+      "char_count": 1268,
+      "letter_ratio": 0.32413249211356465,
+      "notes": [
+        "pdftotext_insufficient(chars=1268,letter_ratio=0.32) -> ocr",
+        "ocr_did_not_improve"
+      ]
+    },
+    {
+      "page_number": 4,
+      "method": "pdftotext",
+      "char_count": 1674,
+      "letter_ratio": 0.4271206690561529,
+      "notes": []
+    }
+  ]
+}

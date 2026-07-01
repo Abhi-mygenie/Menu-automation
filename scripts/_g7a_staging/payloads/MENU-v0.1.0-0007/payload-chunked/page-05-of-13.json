@@ -1,0 +1,30 @@
+{
+  "request_kind": "text_only",
+  "gemini_model": "gemini-2.5-flash",
+  "schema_version": "gemini-extract-schema-v1.2",
+  "prompt_version": "extract-v1",
+  "preprocessing_version": "g7a-textocr-v1",
+  "import_id": "smoke-MENU-v0.1.0-0007",
+  "source_file": "Ghatkesar family dhaba.pdf",
+  "dataset_id": "MENU-v0.1.0-0007",
+  "dataset_version": "v0.1.0-PROPOSED",
+  "sha256": "e57e64a2fd9b8c2e69774eef7011aef78baef1f29189210e9e4d25f9200831a6",
+  "chunk_label": "page-05-of-13",
+  "pages_in_payload": [
+    5
+  ],
+  "total_pages_in_source": 13,
+  "text_parts": [
+    {
+      "page_number": 5,
+      "extraction_method": "pdftotext-low",
+      "char_count": 3668,
+      "letter_ratio": 0.203,
+      "notes": [
+        "pdftotext_insufficient(chars=3668,letter_ratio=0.20) -> ocr",
+        "ocr_did_not_improve"
+      ],
+      "text": "DescriptionImage   SubCategoryId\n                             RestaurantId\n                                       Discount DiscountType\n                                                          AvailableTimeStarts\n                                                                     AvailableTimeEnds\n                                                                                FoodFor\n           1.png           0       571         0 percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal\n           1.png           0       571         0 Percent 00:00:00 23:59:00 Normal"
+    }
+  ]
+}

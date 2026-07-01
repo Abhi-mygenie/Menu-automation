@@ -1,0 +1,62 @@
+91594 PRAWNS FRY              320 Seafood [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91595 LOOSE PRAWNS            320 Seafood [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91596 PRAWNS 65               380 Seafood []                      Yes
+91597 PRAWNS CHILLI           380 Seafood []                      Yes
+91598 PRAWNS MANCHURIA        380 Seafood []                      Yes
+91599 PRAWNS CURRY            300 Seafood [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91600 FISH CURRY              300 Seafood [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91601 MUTTON FRY              360 Mutton [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91602 MUTTON GHEE ROAST       380 Mutton [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91603 MUTTON BOTTI FRY        200 Mutton [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91604 MUTTON CURRY            350 Mutton [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91605 MUTTON ROAGAN GOSE      350 Mutton [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91606 GONGURA MUTTON          420 Mutton []                       Yes
+91607 BUTTER CHICKEN          280 Chicken [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91608 KADAI CHICKEN           280 Chicken [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91609 CHICKEN CURRY           260 Chicken [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91610 METHI CHICKEN           280 Chicken [{"name":"Size","type":"single","min":0,"max":0,"requir
+                                                                  Yes
+91611 KAJU CHICKEN            380 Chicken []                      Yes
+91612 CHICKEN KEEMA MASALA    380 Chicken []                      Yes
+91613 PUNJABI CHICKEN         340 Chicken []                      Yes
+91614 GONGURA CHICKEN         340 Chicken []                      Yes
+91615 CHEFS SPL CURRY         420 Chicken []                      Yes
+91616 EGG CURRY               180 Egg Curry [{"name":"choice of Juice","type":"single","min":0,"max
+                                                                  Yes
+91617 EGG BURJI               180 Egg Curry [{"name":"choice of Juice","type":"single","min":0,"max
+                                                                  Yes
+91618 EGG MAHARANI            250 Egg Curry []                    Yes
+91619 TANDOORI ROTI            30 Bread     []                    Yes
+91620 BUTTER NAAN              60 Bread     []                    Yes
+91621 PLAIN NAAN               40 Bread     []                    Yes
+91622 GARLIC NAAN              70 Bread     []                    Yes
+91623 RUMAL ROTI               35 Bread     []                    Yes
+91624 LACHA PARATHA            60 Bread     []                    Yes
+91625 ALOO KULCHA             100 Bread     []                    Yes
+91626 GOBI KULCHA             100 Bread     []                    Yes
+91627 PANEER KULCHA           120 Bread     []                    Yes
+91628 CHICKEN FAMILY PACK     750 Family packs
+                                            []                    Yes
+91629 SPL CHICKEN FAMILY      850 Family packs
+                                            []                    Yes
+91630 MUTTON FAMILY           950 Family packs
+                                            []                    Yes
+91631 MIXED FAMILY           1200 Family packs
+                                            []                    Yes
+91632 VEG FAMILY              700 Family packs
+                                            []                    Yes
+91633 PANEER FAMILY           800 Family packs
+                                            []                    Yes
+91634 BUTTER MILK              60 Beverage []                     Yes

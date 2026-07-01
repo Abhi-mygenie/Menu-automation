@@ -1,0 +1,362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mygenie.local/schemas/gemini-menu-extraction-v1.2.json",
+  "title": "Gemini Menu Extraction Output Schema",
+  "description": "Strict JSON schema for Gemini structured output during menu extraction. Used in Phase 1 Production Release of the MyGenie AI Menu Import System. Every Gemini response MUST conform; responses that fail validation trigger retry per the playbook's §7.2 retry rules.",
+  "$comment": "Version string stored in menu_import_pages.raw_extraction_payload + menu_imports.json_schema_version. Bumping requires a new prompt version + eval rerun against the frozen golden set. v1.1 patch: added 'category_inferred' to row.issue_status enum. v1.2 patch: added optional pages[].warnings array (page-level extraction warnings).",
+  "version": "1.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "import_id",
+    "source_file",
+    "model_metadata",
+    "pages",
+    "warnings",
+    "extraction_summary"
+  ],
+  "properties": {
+    "import_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Our server-side menu_import_id, echoed back so we can bind the payload to the staging record."
+    },
+    "source_file": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Original file name preserved for audit; never used as a trust signal."
+    },
+    "model_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_name",
+        "sdk_version",
+        "prompt_version",
+        "json_schema_version",
+        "preprocessing_version",
+        "normalizer_version"
+      ],
+      "properties": {
+        "model_name": {
+          "type": "string",
+          "enum": [
+            "gemini-3.1-pro-preview",
+            "gemini-3-flash-preview",
+            "gemini-2.5-pro",
+            "gemini-2.5-flash"
+          ],
+          "description": "Exact Gemini model string used for this extraction."
+        },
+        "sdk_version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "e.g., 'emergentintegrations==<ver>' or '@google/genai@<ver>'."
+        },
+        "prompt_version": {
+          "type": "string",
+          "pattern": "^extract-v\\d+(-[a-z0-9]+)?$",
+          "description": "e.g., 'extract-v1' or 'extract-v1-strict'."
+        },
+        "json_schema_version": {
+          "type": "string",
+          "pattern": "^gemini-extract-schema-v\\d+(\\.\\d+)?$",
+          "description": "Schema version this response conforms to (e.g., 'gemini-extract-schema-v1.2')."
+        },
+        "preprocessing_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalizer_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Page" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "empty_page",
+          "multi_column_confusion",
+          "ocr_unreadable",
+          "layout_ambiguous",
+          "mixed_language_detected",
+          "handwritten_section_detected",
+          "price_uncertain_page_level",
+          "category_inferred_page_level",
+          "no_source_grounding_page_level",
+          "safety_refusal",
+          "cost_cap_exceeded"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Extraction-level (page/document) warnings. Row-level warnings are on individual rows."
+    },
+    "extraction_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_rows",
+        "rows_with_missing_price",
+        "rows_with_variant_warning",
+        "rows_with_addon_warning",
+        "menu_notes_detected",
+        "pages_extracted",
+        "pages_empty"
+      ],
+      "properties": {
+        "total_rows": { "type": "integer", "minimum": 0 },
+        "rows_with_missing_price": { "type": "integer", "minimum": 0 },
+        "rows_with_variant_warning": { "type": "integer", "minimum": 0 },
+        "rows_with_addon_warning": { "type": "integer", "minimum": 0 },
+        "menu_notes_detected": { "type": "integer", "minimum": 0 },
+        "pages_extracted": { "type": "integer", "minimum": 0 },
+        "pages_empty": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["page_number", "rows", "menu_notes"],
+      "properties": {
+        "page_number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based page number within the source file."
+        },
+        "rows": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Row" },
+          "description": "Zero rows is valid only if 'empty_page' is in extraction_summary/warnings."
+        },
+        "menu_notes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/MenuNote" },
+          "description": "Page-level notes (GST extra, parcel charge, etc.). Never auto-applied."
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "empty_page",
+              "multi_column_confusion",
+              "ocr_unreadable",
+              "layout_ambiguous",
+              "mixed_language_detected",
+              "handwritten_section_detected",
+              "price_uncertain_page_level",
+              "category_inferred_page_level",
+              "no_source_grounding_page_level",
+              "chunked_page_partial_context",
+              "safety_refusal",
+              "cost_cap_exceeded"
+            ]
+          },
+          "uniqueItems": true,
+          "description": "v1.2: Optional page-level warning codes raised during extraction of this specific page. Aggregated into the top-level 'warnings' by the orchestrator. Absence means no page-level warnings."
+        }
+      }
+    },
+    "Row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_no",
+        "category",
+        "item_name",
+        "rate",
+        "currency",
+        "raw_text",
+        "confidence",
+        "issue_status",
+        "source_grounded",
+        "source_bbox",
+        "variant_warning",
+        "addon_warning",
+        "tax_note_warning",
+        "notes"
+      ],
+      "properties": {
+        "row_no": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based sequence within the page, in reading order."
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Category heading as visible on the page; use 'Uncategorized' if no heading grounds this row."
+        },
+        "item_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Exact menu item name. Do not reword. No invention."
+        },
+        "rate": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "number", "minimum": 0, "maximum": 1000000 }
+          ],
+          "description": "Decimal price as a number. Null when missing or ambiguous (set variant_warning or missing_price accordingly via issue_status/warnings)."
+        },
+        "currency": {
+          "type": "string",
+          "enum": ["INR", "USD", "EUR", "GBP", "AED", "UNKNOWN"],
+          "default": "INR",
+          "description": "Default INR unless other currency is visible on the page."
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Verbatim text from the source page that grounds this row. REQUIRED. Rows without non-empty raw_text are rejected."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Self-reported confidence. Rows with 'low' are auto-marked review_required server-side."
+        },
+        "issue_status": {
+          "type": "string",
+          "enum": ["clean", "review_required", "flagged_only_phase1", "category_inferred"],
+          "description": "clean = passes all checks; review_required = blocking warning or low confidence; flagged_only_phase1 = variant/addon/tax-note pattern detected but not extracted in Phase 1; category_inferred (v1.1) = category was not literally printed but inferred from surrounding layout/context — must surface to reviewer."
+        },
+        "source_grounded": {
+          "type": "boolean",
+          "description": "True iff raw_text is non-empty AND the row can be tied to a specific region on the page."
+        },
+        "source_bbox": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x", "y", "w", "h"],
+              "properties": {
+                "x": { "type": "number", "minimum": 0 },
+                "y": { "type": "number", "minimum": 0 },
+                "w": { "type": "number", "minimum": 0 },
+                "h": { "type": "number", "minimum": 0 }
+              }
+            }
+          ],
+          "description": "Bounding box on the page image (in pixels if image, in PDF points if text PDF). Null is allowed but discouraged; the UI source-crop pane requires it when present."
+        },
+        "variant_warning": {
+          "type": "boolean",
+          "default": false,
+          "description": "True when multiple prices appear near one item (Small/Medium/Large, Half/Full). Phase 1 DOES NOT extract variant children; only flags."
+        },
+        "addon_warning": {
+          "type": "boolean",
+          "default": false,
+          "description": "True when add-on phrasing is detected (+ Cheese, Extra Patty). Phase 1 DOES NOT extract addon children; only flags."
+        },
+        "tax_note_warning": {
+          "type": "boolean",
+          "default": false,
+          "description": "True when tax/GST/service/packaging phrasing is attached to the row itself (rare; usually in menu_notes)."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Short free-text model notes about this row. May be empty string."
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "If variant_warning=true, rate must be null AND issue_status must be flagged_only_phase1 (Phase 1 does not extract variant children).",
+          "if": { "properties": { "variant_warning": { "const": true } }, "required": ["variant_warning"] },
+          "then": {
+            "properties": {
+              "rate": { "const": null },
+              "issue_status": { "const": "flagged_only_phase1" }
+            }
+          }
+        },
+        {
+          "$comment": "If addon_warning=true, issue_status must be flagged_only_phase1.",
+          "if": { "properties": { "addon_warning": { "const": true } }, "required": ["addon_warning"] },
+          "then": {
+            "properties": {
+              "issue_status": { "const": "flagged_only_phase1" }
+            }
+          }
+        },
+        {
+          "$comment": "If confidence=low, issue_status must be review_required or flagged_only_phase1.",
+          "if": { "properties": { "confidence": { "const": "low" } }, "required": ["confidence"] },
+          "then": {
+            "properties": {
+              "issue_status": {
+                "enum": ["review_required", "flagged_only_phase1"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "MenuNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "note_text",
+        "note_type",
+        "tax_note_warning",
+        "confidence"
+      ],
+      "properties": {
+        "note_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note_type": {
+          "type": "string",
+          "enum": [
+            "tax_note",
+            "service_charge_note",
+            "packaging_note",
+            "addon_note",
+            "availability_note",
+            "general_note"
+          ]
+        },
+        "tax_note_warning": {
+          "type": "boolean",
+          "default": false,
+          "description": "True for note_type in {tax_note, service_charge_note, packaging_note}. Never auto-applied; user must review."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        }
+      }
+    }
+  },
+  "$meta": {
+    "phase": "Phase 1 Production Release",
+    "out_of_scope_in_phase_1": [
+      "variant child extraction (only variant_warning flag in Phase 1)",
+      "addon child extraction (only addon_warning flag in Phase 1)",
+      "combo decomposition",
+      "tax auto-application",
+      "image URLs on items",
+      "food_type classification in the Gemini output (normalized post-hoc)",
+      "pricing_type classification in the Gemini output (inferred post-hoc)"
+    ],
+    "enforcement_notes": [
+      "additionalProperties=false everywhere to block hallucinated fields.",
+      "raw_text is required + non-empty on every row; primary hallucination defense.",
+      "Conditional allOf blocks enforce that variant/addon flags imply the correct issue_status + null rate.",
+      "model_name enum narrows to the approved set; unknown models fail validation."
+    ]
+  }
+}

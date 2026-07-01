@@ -1,0 +1,897 @@
+openapi: 3.1.0
+
+# =============================================================================
+# IMPORTANT: This is a PROPOSED CANONICAL CONTRACT, not a discovered contract.
+# The POS Menu API is NOT present in /app/ codebase (see DISCOVERY_REPORT).
+# Every TODO marker below indicates a field/endpoint the POS engineering team
+# must confirm, revise, or replace. Do NOT implement against this draft as-is.
+# This file is the starting artifact for a contract discussion with POS team.
+# =============================================================================
+
+info:
+  title: MyGenie POS Menu API (PROPOSED CANONICAL — awaiting POS team validation)
+  version: 0.1.0-draft
+  summary: >
+    Proposed REST contract for the MyGenie POS Menu Master, consumed by the
+    AI Menu Import System (`menu-import-service`) at sync time. Phase 0
+    discovery found NO existing POS Menu API in this repository; this draft
+    is the starting point for confirmation by the POS engineering team.
+  description: |
+    Status: DRAFT — every operation, schema field, and error code is provisional.
+    Validation rule: any field marked TODO must be confirmed or revised by the
+    POS engineering team before this contract is finalized.
+
+    Safety invariants (must hold regardless of POS revisions):
+    - All mutating operations require POS JWT + Idempotency-Key.
+    - All operations are tenant-scoped; tenant key is taken from JWT, not body.
+    - This module never calls a destructive operation on its own initiative;
+      only the user-driven Rollback Service does so, and only in the configured
+      ROLLBACK_MODE.
+    - Reading existing menu (categories + items) is required for dedup-preview
+      (Phase 2+); creating items must be idempotent.
+
+servers:
+  - url: https://pos.example.mygenie.local/api/v1     # TODO: confirm with POS team
+    description: TODO — production POS Menu API base URL (PROPOSED)
+  - url: https://staging-pos.example.mygenie.local/api/v1   # TODO
+    description: TODO — staging POS Menu API base URL (PROPOSED)
+
+# -----------------------------------------------------------------------------
+# Security
+# -----------------------------------------------------------------------------
+components:
+  securitySchemes:
+    POSJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        TODO — confirm POS JWT details with POS team:
+          - Issuer (`iss`) value
+          - Algorithm (HS256 vs RS256)
+          - JWKS URL (for RS256) or shared secret rotation policy (for HS256)
+          - Required claims:
+              * `restaurant_id` (or vendor_id / outlet_id — POS to confirm)
+              * `user_id`
+              * `roles` and/or `scopes` (e.g., `menu:write`)
+          - Token lifetime + refresh strategy
+          - Whether a service-to-service token is required for sync workers
+
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: true
+      schema:
+        type: string
+        maxLength: 128
+      description: |
+        Required on every mutating call. Format used by `menu-import-service`:
+        `menu-import:{import_id}:row:{row_id}:attempt:{n}` for sync, and
+        analogous deterministic strings for category create / item update / rollback.
+        TODO — confirm POS supports this header and dedupes server-side.
+        If POS does not honor it, `menu-import-service` will run a local
+        idempotency table (`menu_import_idempotency_keys`) and short-circuit replays.
+
+    RestaurantIdHeader:
+      in: header
+      name: X-Restaurant-Id
+      required: false
+      schema:
+        type: string
+      description: |
+        TODO — many POS systems take tenant from JWT only. If POS additionally
+        requires a header (or query param), this slot is reserved.
+
+  schemas:
+
+    # -------- ID shape (POS-issued; left intentionally permissive) ----------
+    POSId:
+      oneOf:
+        - type: integer
+          format: int64
+        - type: string
+      description: |
+        POS-issued identifier. Could be BIGINT (numeric) or UUID (string) or
+        opaque string. TODO — confirm with POS team. Stored on our side as
+        JSONB to remain shape-agnostic.
+
+    # -------- Money / numerics ---------------------------------------------
+    Money:
+      type: string
+      pattern: "^\\d+(\\.\\d{1,2})?$"
+      description: Decimal money as a string ("240.00") to avoid float drift.
+      example: "240.00"
+
+    Currency:
+      type: string
+      enum: ["INR"]   # TODO — confirm whether POS supports multi-currency
+      example: "INR"
+
+    # -------- Enums (proposed; POS to confirm) -----------------------------
+    FoodType:
+      type: string
+      enum: [veg, non_veg, egg, unknown]
+      description: TODO — confirm POS represents food type, and the exact enum.
+
+    PricingType:
+      type: string
+      enum: [fixed, variant_based, addon_based, weight_based, quantity_based, open_price]
+      description: TODO — confirm POS pricing model semantics.
+
+    Unit:
+      type: string
+      description: |
+        e.g., "kg", "pc", "plate", "dozen". TODO — confirm POS supports unit
+        annotations and the canonical unit list.
+
+    # -------- Category -----------------------------------------------------
+    Category:
+      type: object
+      required: [id, restaurant_id, name]
+      properties:
+        id:
+          $ref: "#/components/schemas/POSId"
+        restaurant_id:
+          $ref: "#/components/schemas/POSId"
+          description: |
+            TODO — confirm key naming. Some POS systems use vendor_id / outlet_id.
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        parent_category_id:
+          $ref: "#/components/schemas/POSId"
+          nullable: true
+          description: TODO — confirm whether POS supports nested categories.
+        display_order:
+          type: integer
+          default: 0
+        is_active:
+          type: boolean
+          default: true
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: |
+            For Mode B (archive rollback). TODO — confirm POS exposes this field
+            or an equivalent (`status`, `deleted_at`, etc.).
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CategoryCreateRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        parent_category_id:
+          $ref: "#/components/schemas/POSId"
+          nullable: true
+        display_order:
+          type: integer
+          default: 0
+
+    CategoryUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        parent_category_id:
+          $ref: "#/components/schemas/POSId"
+          nullable: true
+        display_order:
+          type: integer
+        is_active:
+          type: boolean
+
+    # -------- Item ---------------------------------------------------------
+    Item:
+      type: object
+      required: [id, restaurant_id, category_id, name]
+      properties:
+        id:
+          $ref: "#/components/schemas/POSId"
+        restaurant_id:
+          $ref: "#/components/schemas/POSId"
+        category_id:
+          $ref: "#/components/schemas/POSId"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 300
+        description:
+          type: string
+          nullable: true
+        base_price:
+          $ref: "#/components/schemas/Money"
+          nullable: true
+          description: |
+            Required when pricing_type = fixed. Null is allowed for variant_based.
+        currency:
+          $ref: "#/components/schemas/Currency"
+        food_type:
+          $ref: "#/components/schemas/FoodType"
+        pricing_type:
+          $ref: "#/components/schemas/PricingType"
+        unit:
+          $ref: "#/components/schemas/Unit"
+          nullable: true
+        tax_class_id:
+          $ref: "#/components/schemas/POSId"
+          nullable: true
+          description: |
+            TODO — confirm POS tax model. menu-import-service NEVER auto-sets
+            this; it only forwards a value the user explicitly chose.
+        gst_rate_percent:
+          type: number
+          nullable: true
+          description: |
+            TODO — confirm whether POS uses tax_class_id or a direct rate or both.
+            menu-import-service NEVER auto-sets this.
+        image_url:
+          type: string
+          format: uri
+          nullable: true
+          description: TODO — confirm whether POS expects URL or upload flow.
+        display_order:
+          type: integer
+          default: 0
+        is_active:
+          type: boolean
+          default: true
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
+        external_ref:
+          type: object
+          nullable: true
+          description: |
+            Recommended POS field — opaque mapping back to source system.
+            menu-import-service will set this to:
+              { "source": "menu-import", "menu_import_id": <id>, "row_id": <id> }
+            TODO — confirm POS will store and return this.
+        variants:
+          type: array
+          description: |
+            Optional inline variants (alternative to /variants endpoint).
+            TODO — confirm whether POS treats variants as nested or first-class.
+          items:
+            $ref: "#/components/schemas/Variant"
+        addons:
+          type: array
+          items:
+            $ref: "#/components/schemas/Addon"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ItemCreateRequest:
+      type: object
+      required: [category_id, name, food_type, pricing_type]
+      properties:
+        category_id:
+          $ref: "#/components/schemas/POSId"
+        name:
+          type: string
+        description:
+          type: string
+        base_price:
+          $ref: "#/components/schemas/Money"
+        currency:
+          $ref: "#/components/schemas/Currency"
+        food_type:
+          $ref: "#/components/schemas/FoodType"
+        pricing_type:
+          $ref: "#/components/schemas/PricingType"
+        unit:
+          $ref: "#/components/schemas/Unit"
+        tax_class_id:
+          $ref: "#/components/schemas/POSId"
+        gst_rate_percent:
+          type: number
+        image_url:
+          type: string
+          format: uri
+        display_order:
+          type: integer
+        external_ref:
+          type: object
+          additionalProperties: true
+        variants:
+          type: array
+          items:
+            $ref: "#/components/schemas/VariantCreate"
+        addons:
+          type: array
+          items:
+            $ref: "#/components/schemas/AddonCreate"
+
+    ItemUpdateRequest:
+      description: |
+        Used ONLY when the user explicitly resolves a duplicate as `update_existing`
+        in the dedup-preview UI. Default behavior never PATCHes existing items.
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        base_price:
+          $ref: "#/components/schemas/Money"
+        currency:
+          $ref: "#/components/schemas/Currency"
+        food_type:
+          $ref: "#/components/schemas/FoodType"
+        pricing_type:
+          $ref: "#/components/schemas/PricingType"
+        unit:
+          $ref: "#/components/schemas/Unit"
+        is_active:
+          type: boolean
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
+        external_ref:
+          type: object
+          additionalProperties: true
+
+    # -------- Variant + Addon ---------------------------------------------
+    Variant:
+      type: object
+      required: [name]
+      properties:
+        id:
+          $ref: "#/components/schemas/POSId"
+        group_name:
+          type: string
+          description: e.g., "Size"
+        name:
+          type: string
+        price:
+          $ref: "#/components/schemas/Money"
+        is_default:
+          type: boolean
+        display_order:
+          type: integer
+
+    VariantCreate:
+      type: object
+      required: [name]
+      properties:
+        group_name:
+          type: string
+        name:
+          type: string
+        price:
+          $ref: "#/components/schemas/Money"
+        is_default:
+          type: boolean
+        display_order:
+          type: integer
+
+    Addon:
+      type: object
+      required: [name]
+      properties:
+        id:
+          $ref: "#/components/schemas/POSId"
+        group_name:
+          type: string
+        name:
+          type: string
+        price:
+          $ref: "#/components/schemas/Money"
+        display_order:
+          type: integer
+
+    AddonCreate:
+      type: object
+      required: [name]
+      properties:
+        group_name:
+          type: string
+        name:
+          type: string
+        price:
+          $ref: "#/components/schemas/Money"
+        display_order:
+          type: integer
+
+    # -------- Bulk endpoints (optional optimization) -----------------------
+    BulkItemCreateRequest:
+      type: object
+      description: |
+        TODO — confirm whether POS exposes a bulk endpoint. If not, sync uses
+        per-item POSTs. menu-import-service is configured to use whichever
+        path POS supports.
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ItemCreateRequest"
+          minItems: 1
+          maxItems: 200
+
+    BulkItemCreateResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            required: [status]
+            properties:
+              status:
+                type: string
+                enum: [created, idempotent_replay, failed]
+              item:
+                $ref: "#/components/schemas/Item"
+              error:
+                $ref: "#/components/schemas/Error"
+
+    # -------- Restaurant profile (cuisine_type) ---------------------------
+    RestaurantProfile:
+      type: object
+      description: |
+        TODO — confirm POS exposes restaurant profile and where cuisine_type lives.
+        If POS does not carry cuisine_type, fallback is to capture it on first
+        upload via menu-import-service onboarding.
+      properties:
+        id:
+          $ref: "#/components/schemas/POSId"
+        name:
+          type: string
+        cuisine_type:
+          type: string
+          description: |
+            e.g., "indian", "chinese", "south-indian", "multi-cuisine".
+            TODO — confirm POS canonical list.
+        timezone:
+          type: string
+        currency:
+          $ref: "#/components/schemas/Currency"
+
+    # -------- Errors -------------------------------------------------------
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              description: |
+                Stable machine-readable code, e.g.,
+                  UNAUTHENTICATED, FORBIDDEN, NOT_FOUND, VALIDATION_FAILED,
+                  CATEGORY_NOT_FOUND, ITEM_DUPLICATE, RATE_LIMITED, INTERNAL_ERROR.
+                TODO — confirm POS error code catalog.
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                additionalProperties: true
+            trace_id:
+              type: string
+
+  responses:
+    Unauthenticated:
+      description: Missing or invalid POS JWT.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Forbidden:
+      description: JWT lacks required scope (e.g., `menu:write`).
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Tenant-scoped resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    ValidationFailed:
+      description: Request body / params failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Conflict:
+      description: Idempotency conflict or duplicate.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    RateLimited:
+      description: Per-restaurant rate limit hit.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalError:
+      description: POS internal failure.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+security:
+  - POSJwt: []
+
+# -----------------------------------------------------------------------------
+# Paths (PROPOSED)
+# -----------------------------------------------------------------------------
+paths:
+
+  # ---------------- Categories ----------------
+  /menu/categories:
+    get:
+      operationId: listCategories
+      summary: List menu categories for the authenticated restaurant.
+      description: |
+        Used by the Sync Service to resolve target category IDs and by the
+        Duplicate Prevention Service to power dedup-preview.
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: page_size
+          schema: { type: integer, default: 100, maximum: 500 }
+        - in: query
+          name: search
+          schema: { type: string }
+          description: TODO — confirm POS supports server-side search.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: "#/components/schemas/Category" }
+                  pagination:
+                    type: object
+                    properties:
+                      page: { type: integer }
+                      page_size: { type: integer }
+                      total: { type: integer }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+    post:
+      operationId: createCategory
+      summary: Create a menu category. Idempotent on (restaurant_id, name).
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CategoryCreateRequest" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Category" }
+        "200":
+          description: |
+            Idempotent replay — returns the previously created resource.
+            TODO — confirm POS replay semantics.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Category" }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "409": { $ref: "#/components/responses/Conflict" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+        "500": { $ref: "#/components/responses/InternalError" }
+
+  /menu/categories/{categoryId}:
+    parameters:
+      - in: path
+        name: categoryId
+        required: true
+        schema: { $ref: "#/components/schemas/POSId" }
+    patch:
+      operationId: updateCategory
+      summary: Update a category (rare; used to fix names or sort order).
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CategoryUpdateRequest" }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Category" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+    delete:
+      operationId: deleteCategory
+      summary: |
+        Optional — used only for rollback Mode A of an entire imported group.
+        TODO — confirm POS supports DELETE on categories with referenced items
+        (likely returns 409 if items exist).
+      responses:
+        "204":
+          description: Deleted
+        "404": { $ref: "#/components/responses/NotFound" }
+        "409": { $ref: "#/components/responses/Conflict" }
+
+  # ---------------- Items ----------------
+  /menu/items:
+    get:
+      operationId: listItems
+      summary: List items, filterable by category. Powers dedup-preview.
+      parameters:
+        - in: query
+          name: category_id
+          schema: { $ref: "#/components/schemas/POSId" }
+        - in: query
+          name: search
+          schema: { type: string }
+          description: TODO — confirm POS supports server-side fuzzy search.
+        - in: query
+          name: page
+          schema: { type: integer, default: 1 }
+        - in: query
+          name: page_size
+          schema: { type: integer, default: 100, maximum: 500 }
+        - in: query
+          name: include_inactive
+          schema: { type: boolean, default: false }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: "#/components/schemas/Item" }
+                  pagination:
+                    type: object
+                    properties:
+                      page: { type: integer }
+                      page_size: { type: integer }
+                      total: { type: integer }
+    post:
+      operationId: createItem
+      summary: Create a menu item. Idempotent on (category_id, name).
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ItemCreateRequest" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Item" }
+        "200":
+          description: Idempotent replay.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Item" }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "409": { $ref: "#/components/responses/Conflict" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+        "500": { $ref: "#/components/responses/InternalError" }
+
+  /menu/items/{itemId}:
+    parameters:
+      - in: path
+        name: itemId
+        required: true
+        schema: { $ref: "#/components/schemas/POSId" }
+    get:
+      operationId: getItem
+      summary: Read a single item.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Item" }
+        "404": { $ref: "#/components/responses/NotFound" }
+    patch:
+      operationId: updateItem
+      summary: |
+        Update an existing item. Used ONLY when the user resolved a duplicate as
+        `update_existing` in the dedup-preview UI. Default sync never PATCHes
+        existing items.
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ItemUpdateRequest" }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Item" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+    delete:
+      operationId: deleteItem
+      summary: |
+        Optional — for rollback Mode A. If POS does not support DELETE,
+        Rollback Service falls back to PATCH archive (Mode B) or manual
+        cleanup (Mode C) per ROLLBACK_MODE config.
+      responses:
+        "204":
+          description: Deleted
+        "404": { $ref: "#/components/responses/NotFound" }
+        "409":
+          description: |
+            Item is in use (orders / KOTs reference it). POS to confirm
+            actual semantics.
+          $ref: "#/components/responses/Conflict"
+
+  # ---------------- Variants + Addons (optional first-class endpoints) ----
+  /menu/items/{itemId}/variants:
+    parameters:
+      - in: path
+        name: itemId
+        required: true
+        schema: { $ref: "#/components/schemas/POSId" }
+    post:
+      operationId: addVariants
+      summary: Bulk attach variants to an item.
+      description: |
+        TODO — confirm whether POS treats variants as first-class entities.
+        If not, this endpoint is dropped and variants are nested in
+        ItemCreateRequest.variants[].
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: "#/components/schemas/VariantCreate" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Variant" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+
+  /menu/items/{itemId}/addons:
+    parameters:
+      - in: path
+        name: itemId
+        required: true
+        schema: { $ref: "#/components/schemas/POSId" }
+    post:
+      operationId: addAddons
+      summary: Bulk attach add-ons to an item.
+      description: TODO — same caveat as /variants.
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: "#/components/schemas/AddonCreate" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Addon" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+
+  # ---------------- Bulk (optional optimization) --------------------------
+  /menu/items/bulk:
+    post:
+      operationId: createItemsBulk
+      summary: |
+        Optional bulk create. Improves sync throughput on large menus.
+      description: |
+        TODO — confirm whether POS exposes a bulk endpoint. If not, sync uses
+        per-item POSTs; throughput remains acceptable (50 rows × ~200ms ≈ 10s).
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BulkItemCreateRequest" }
+      responses:
+        "200":
+          description: Per-item results (partial success allowed).
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BulkItemCreateResponse" }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "422": { $ref: "#/components/responses/ValidationFailed" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+
+  # ---------------- Restaurant profile (cuisine_type) ---------------------
+  /restaurants/me:
+    get:
+      operationId: getMyRestaurantProfile
+      summary: |
+        Read the authenticated restaurant's profile.
+        Required for cuisine-scope learning (Phase 2). If POS doesn't carry
+        cuisine_type, menu-import-service captures it during onboarding.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RestaurantProfile" }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+# -----------------------------------------------------------------------------
+# x-evidence — discovery provenance (NON-OAS extension)
+# -----------------------------------------------------------------------------
+x-evidence:
+  source_repo_path: /app/
+  discovery_method: static_grep_only
+  evidence_summary: |
+    No POS Menu API found in /app/. The repository is a fresh FastAPI + React
+    + MongoDB scaffold. Searches performed (excluding shadcn/ui primitives and
+    node_modules):
+      - 0 hits on "menu|categor|item|product|sku|recipe|cuisine|restaurant|
+        outlet|vendor|tenant|merchant|food|tax|gst" outside UI primitives
+      - 3 backend routes total: GET /api/, GET /api/status, POST /api/status
+      - 1 frontend axios call: GET ${API}/ (Hello World)
+  status_per_blocker:
+    B-1_contract: STILL_BLOCKED
+    B-2_delete_archive_rollback: STILL_BLOCKED
+    B-3_bulk_endpoints: STILL_BLOCKED
+    B-5_cuisine_type_source: STILL_BLOCKED
+    B-7_other_sync_issues: PARTIALLY_CLOSED  # documented via this proposed contract
+  next_action: |
+    Engage POS engineering team to confirm or revise this proposed contract.
+    Until confirmed, every operation/schema field marked TODO is provisional.
